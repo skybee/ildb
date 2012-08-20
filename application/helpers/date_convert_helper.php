@@ -117,3 +117,17 @@ function get_timesize( $start_less, $stop_less){ //определяет разм
             
     return $timesize;
 }
+
+function get_timestop($time, $timesize){ //получает время начала занятий и продолжительность, возврощает время окончания занятий
+    $plus_time = $timesize/2;
+    $plus_h = floor($plus_time);
+    
+    if( $plus_h != $plus_time)
+        $plus_min_str = "30 minute";
+    else
+        $plus_min_str = '';
+    
+    $result_time = date("H:i:00", strtotime("+ $plus_h hour $plus_min_str", strtotime($time) ) );
+    
+    return $result_time;
+}

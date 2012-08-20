@@ -45,4 +45,15 @@ class schedule_model extends CI_Model{
         
         return $result_ar;
     }
+    
+    function drag_change( $data ){ //изменение занятия в постоянном расписании
+        $this->db->query("  UPDATE `timetable_set` 
+                            SET
+                                `classroom_id`  = {$data['classroom']},
+                                `day`           = {$data['day']},
+                                `time_start`    = '{$data['starttime']}',
+                                `time_stop`     = '{$data['stoptime']}'
+                            WHERE
+                                `id`={$data['lesson_id']}");
+    }
 }

@@ -72,7 +72,7 @@
                                                     $block_h        .= 'px';
                                             ?>
                                             
-                                            <div class="sch_drag"  timesize="<?=$timesize?>" >
+                                            <div class="sch_drag"  timesize="<?=$timesize?>" lesson_id="<?=$lesson_ar['id']?>">
                                                 <div class="visual_drag" style="height: <?=$block_h?>" group_id="<?=$group_ar['id']?>" day="<?=$i?>" >
                                                     <div class="shc_vertical_line"></div>
                                                     <div class="sch_drag_groupname">
@@ -82,7 +82,7 @@
                                                             <a href="/group_cart/<?=$group_ar['link_id']?>/"><?= $group_ar['name'] ?></a>
                                                         <? endif; ?>    
                                                     </div>
-                                                    <div class="sch_drag_teachername"><?= $teacher_ar['fio_name'].' '.$teacher_ar['fio_sname'] ?></div>
+                                                    <div class="sch_drag_teachername" teacher_id="<?=$teacher_ar['id']?>"><?= $teacher_ar['fio_name'].' '.$teacher_ar['fio_sname'] ?></div>
                                                     <div class="sch_drag_langname"><span><?= $group_ar['lang'] ?></span> 9</div>
                                                 </div>
                                             </div>

@@ -296,7 +296,7 @@ class main extends CI_Controller{
             $sch_data['group_list'][$key] = $val;
         
 //        echo '<pre>';
-//        print_r($sch_data['group_list']);
+//        print_r($sch_data['timetable_list']);
 //        echo '</pre>';
         
         $main_data_ar['title']          = 'Расписание';

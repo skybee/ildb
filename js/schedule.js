@@ -64,6 +64,8 @@ function show_empty_dot(){ // показывает скрытые пустые �
 function set_drag_data( drag ){
     starttime   = $(drag).attr('starttime');
     timesize    = $('.sch_drag',drag).attr('timesize');
+    lesson_id   = $('.sch_drag',drag).attr('lesson_id');
+    teacher_id  = $('.sch_drag_teachername',drag).attr('teacher_id');
     day         = $(drag).attr('day_dot');
     classroom   = $(drag).attr('classroom');
     
@@ -77,7 +79,7 @@ function set_drag_data( drag ){
         
     $.post(
         '/action/schedule/drag_change/',
-        { starttime:starttime, timesize:timesize, day:day, classroom:classroom}
+        { starttime:starttime, timesize:timesize, day:day, classroom:classroom, teacher_id:teacher_id, lesson_id:lesson_id}
     );    
 }
 
