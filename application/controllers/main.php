@@ -192,10 +192,11 @@ class main extends CI_Controller{
         $gp_data['teachers_list']   = $this->list->get_teacher_lang();
         $gp_data['lang_list']       = $this->list->get_lang();
         $gp_data['timeselect_opt']  = $this->load->view('component/timeselect_opt_view','',TRUE);
-        $gp_data['students_list']   = $this->student->get_students();
+//        $gp_data['students_list']   = $this->student->get_students();
+        $gp_data['students_list']   = $this->student->get_students_for_status();
         
 //        echo '<pre>';
-//        print_r($gp_data);
+//        print_r($gp_data['students_list']);
 //        echo '</pre>';          
         
         $main_data_ar['left_menu']              = $this->load->view('component/left_menu_view', '', TRUE);

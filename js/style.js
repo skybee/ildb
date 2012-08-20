@@ -109,6 +109,13 @@ $(document).ready(function() {
    $('.date_input_all').wrap('<div class="date_input_all_block" ></div>');
    //== input[type=text] (серые текстовые инпуты) ==//
    $('.greyinput').wrap('<div class="greyinput_block"><div></div></div>');
+   
+   
+    top_menu_w = $('#right_content').outerWidth(true);
+   $('#fix_top_menu').waypoint(function(){
+       $('#fix_top_menu').css({width:top_menu_w+'px'});
+       $('#fix_top_menu').toggleClass('fix_top_menu_true');
+   });
 });
    
 

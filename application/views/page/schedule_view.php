@@ -2,6 +2,7 @@
 
 
 <div id="right_content">
+                    <div id="fix_top_menu">
                         <div id="content_top_block">
                             <div id="group_top_block">
 
@@ -22,6 +23,7 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
 
 
                         <div id="main_schadule">

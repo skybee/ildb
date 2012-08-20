@@ -358,6 +358,15 @@ div.payment_filter_date_block input{ width: 100px; left: 6px; top: 17px; }
 }
 
 /* === TOP BLOCK === */
+
+.fix_top_menu_true{
+    position: fixed;
+    height: 52px;
+    width: 100px;
+    z-index: 81;
+    top: 0;
+}
+
 #content_top_block{
     background-image: url('/img/bg_center_top_block.png');
     height: 52px;
@@ -1484,7 +1493,7 @@ table.teacher_options_tbl td span{
 /*    border: #c00 dashed 1px;*/
     height: 2px; width:150px;
     margin: 0px 0px 0px 0px;
-    z-index: 99999;
+    z-index: 80;
     position: absolute;
 /*    background: rgba( 200, 0, 0, 0.2);*/
 }

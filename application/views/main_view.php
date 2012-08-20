@@ -15,6 +15,7 @@
         <script type="text/javascript" src="/js/jquery.jscrollpane.min.js"></script>
         <script type="text/javascript" src="/js/jquery.form.js"></script>
         <script type="text/javascript" src="/js/form_action.js"></script>
+        <script type="text/javascript" src="/js/waypoints.min.js"></script>
         <script type="text/javascript" src="/js/style.js"></script>
         <script type="text/javascript" src="/js/schedule.js"></script>
         <script type="text/javascript" src="/js/main.js"></script>

@@ -2,6 +2,7 @@
 
 
 <div id="right_content">
+    <div id="fix_top_menu">
     <div id="content_top_block">
         <div id="group_top_block">
             <div id="check_all_block">
@@ -51,6 +52,7 @@
                 <input type="text" name="group_filter" id="group_filter" class="jq_st_search" />
             </div>
         </div>
+    </div>
     </div>
 
     <table class="group_tbl student_tdl">

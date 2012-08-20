@@ -3,20 +3,21 @@
 
 
 <div id="right_content">
-    <div id="content_top_block">
-        <div id="group_top_block">
-            <!--            <a href="#" class="top_left_btn top_left_btn_left top_left_btn_del"         style="left:20px;"><div></div></a>
-                        <a href="#" class="top_left_btn top_left_btn_center top_left_btn_catalog"   style="left:60px;"><div></div></a>
-                        <a href="#" class="top_left_btn top_left_btn_right top_left_btn_pause"      style="left:100px;"><div></div></a>
-            
-                        <a href="#" class="top_left_btn top_left_btn_list" style="left:150px; width: 115px;">
-                            <div>Скопировать</div>
-                        </a>-->
+    
+        <div id="content_top_block">
+            <div id="group_top_block">
+                <!--            <a href="#" class="top_left_btn top_left_btn_left top_left_btn_del"         style="left:20px;"><div></div></a>
+                            <a href="#" class="top_left_btn top_left_btn_center top_left_btn_catalog"   style="left:60px;"><div></div></a>
+                            <a href="#" class="top_left_btn top_left_btn_right top_left_btn_pause"      style="left:100px;"><div></div></a>
 
-            <!--                            <div class="student_copy_top_btn"></div>-->
-            <div class="student_del_top_btn" onclick="window.location.href='/students/1/'"></div>
+                            <a href="#" class="top_left_btn top_left_btn_list" style="left:150px; width: 115px;">
+                                <div>Скопировать</div>
+                            </a>-->
+
+                <!--                            <div class="student_copy_top_btn"></div>-->
+                <div class="student_del_top_btn" onclick="window.location.href='/students/1/'"></div>
+            </div>
         </div>
-    </div>
 
     <div class="student_cart_block" id="page_tabs">
 
