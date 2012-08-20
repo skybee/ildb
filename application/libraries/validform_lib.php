@@ -23,9 +23,9 @@ class validform_lib{
         if( strlen( $post['fio_sname'] ) < 4 ){
             $anser .= ' Фамилия,';
         }
-        if( strlen( $post['fio_mname'] ) < 4 ){
-            $anser .= ' Отчество,';
-        }
+//        if( strlen( $post['fio_mname'] ) < 4 ){
+//            $anser .= ' Отчество,';
+//        }
         if( !$this->valid_phone( $post['phone'] ) ){
             $anser .= ' Телефон,';
         }
@@ -46,9 +46,9 @@ class validform_lib{
         if( strlen( $post['fio_sname'] ) < 4 ){
             $anser .= ' Фамилия,';
         }
-        if( strlen( $post['fio_mname'] ) < 4 ){
-            $anser .= ' Отчество,';
-        }
+//        if( strlen( $post['fio_mname'] ) < 4 ){
+//            $anser .= ' Отчество,';
+//        }
         if( !$this->valid_phone( $post['phone'] ) ){
             $anser .= ' Телефон,';
         }

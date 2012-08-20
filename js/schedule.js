@@ -61,6 +61,26 @@ function show_empty_dot(){ // показывает скрытые пустые �
     $('.sch_time_td').css({'display':'block'});
 }
 
+function set_drag_data( drag ){
+    starttime   = $(drag).attr('starttime');
+    timesize    = $('.sch_drag',drag).attr('timesize');
+    day         = $(drag).attr('day_dot');
+    classroom   = $(drag).attr('classroom');
+    
+//    alert( starttime+' - '+timesize+' - '+day+' - '+classroom );
+    
+//    send_post(
+//        { starttime:starttime, timesize:timesize, day:day, classroom:classroom},
+//        '/action/schedule/drag_change/',
+//        {title:'Перенос занятия',content:'loader'}
+//    );
+        
+    $.post(
+        '/action/schedule/drag_change/',
+        { starttime:starttime, timesize:timesize, day:day, classroom:classroom}
+    );    
+}
+
 
 $(document).ready(function() {
     
@@ -83,6 +103,7 @@ $(document).ready(function() {
                             if( $(this).nextUntil('div.sch_dot_close').length +1 >= $(ui.draggable).attr('timesize') && $(this).hasClass('sch_dot_close') == false ){
                                 $(this).append(ui.draggable);
                                 sch_set_empty_dot(); //== дективация/активация ячеек под drag элеметом 
+                                set_drag_data(this);
                             }
                     },
                     accept : '.sch_drag'
