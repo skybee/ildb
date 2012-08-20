@@ -61,7 +61,7 @@
                                     <div class="sch_day_in_group">
                                         <? foreach( $time_ar as $time ): ?>
                                         
-                                        <div class="sch_time_td sch_drop" starttime="<?=$time?>" day_dot="<?=$i?>">
+                                        <div class="sch_time_td sch_drop" starttime="<?=$time?>" day_dot="<?=$i?>" classroom="<?=$classroom_ar['id']?>" >
                                             <? if( isset($timetable_list[$classroom_ar['id']][$i][$time]) ):  // если совпадает группа день и время
                                                     $lesson_ar      = $timetable_list[$classroom_ar['id']][$i][$time]; 
                                                     $group_ar       = $group_list[$lesson_ar['school_groups_id']];
