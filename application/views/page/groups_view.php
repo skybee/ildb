@@ -1,6 +1,7 @@
 <?php // if ( ! defined('BASEPATH')) exit('No direct script access allowed');   ?>
 
 <div id="right_content">
+    <div id="fix_top_menu">
     <div id="content_top_block">
         <div id="group_top_block">
             <div id="check_all_block">
@@ -21,6 +22,7 @@
                 <input type="text" name="group_filter" id="group_filter" />
             </div>
         </div>
+    </div>
     </div>
 
     <table class="group_tbl">

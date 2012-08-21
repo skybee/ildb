@@ -241,8 +241,8 @@ class student_model extends CI_Model{
         $status = (int) $status;
         $where = '';
         if( $status )
-            $where = " WHERE `status_id`={$status} ";
-        $query = $this->db->query("SELECT * FROM `student` {$where} ");
+            $where = " AND `status_id`={$status} ";
+        $query = $this->db->query("SELECT * FROM `student` WHERE `delete`='live' {$where} ");
         
         foreach ( $query->result_array() as $row )
             $return_ar[] = $row;
