@@ -282,7 +282,7 @@ class main extends CI_Controller{
         $this->load->view('main_view', $main_data_ar );
     }
     
-    function schedule(){
+    function schedule( $realy = false ){
         $this->load->library('schedule_lib');
         
         $sch_data['time_column']        = $this->load->view('component/schedule/time_column_view','',TRUE);
@@ -302,7 +302,10 @@ class main extends CI_Controller{
         
         $main_data_ar['title']          = 'Расписание';
         $main_data_ar['left_menu']      = $this->load->view('component/left_menu_view', '', TRUE);
-        $main_data_ar['right_content']  = $this->load->view('page/schedule_view', $sch_data, TRUE);
+        if( $realy == 'realy' )
+            $main_data_ar['right_content']  = $this->load->view('page/schedule_realy_view', $sch_data, TRUE);
+        else
+            $main_data_ar['right_content']  = $this->load->view('page/schedule_view', $sch_data, TRUE);
         
         $this->load->view('main_view', $main_data_ar );
     }
