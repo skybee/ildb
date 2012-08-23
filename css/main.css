@@ -140,6 +140,7 @@ textarea{
 a#btn_top_date_vavigation_right:hover{ background-position: -40px -39px; } a#btn_top_date_vavigation_left:hover{ background-position: 0 -39px; }
 a#btn_top_date_vavigation_right:active{ background-position: -40px -78px; } a#btn_top_date_vavigation_left:active{ background-position: 0 -78px; }
 
+.top_schedule_navigation_block{ width: 310px;}
 /* == .навигация по датам в оплатах == */
 
 

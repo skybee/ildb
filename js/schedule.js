@@ -62,24 +62,35 @@ function show_empty_dot(){ // показывает скрытые пустые �
 }
 
 function set_drag_data( drag ){
-    starttime   = $(drag).attr('starttime');
-    timesize    = $('.sch_drag',drag).attr('timesize');
-    lesson_id   = $('.sch_drag',drag).attr('lesson_id');
-    teacher_id  = $('.sch_drag_teachername',drag).attr('teacher_id');
-    day         = $(drag).attr('day_dot');
-    classroom   = $(drag).attr('classroom');
+    starttime       = $(drag).attr('starttime');
+    timesize        = $('.sch_drag',drag).attr('timesize');
+    lesson_id       = $('.sch_drag',drag).attr('lesson_id');
+    teacher_id      = $('.sch_drag_teachername',drag).attr('teacher_id');
+    day_date        = $('.sch_drag',drag).attr('date');
+    new_day_date    = $(drag).attr('date');
+    day             = $(drag).attr('day_dot');
+    classroom       = $(drag).attr('classroom');
     
-//    alert( starttime+' - '+timesize+' - '+day+' - '+classroom );
+    if( day_date != undefined ){
+        action_url = '/action/schedule/realy_drag_change/';
+    }
+    else{
+        action_url = '/action/schedule/drag_change/';
+    }
     
-//    send_post(
-//        { starttime:starttime, timesize:timesize, day:day, classroom:classroom},
-//        '/action/schedule/drag_change/',
-//        {title:'Перенос занятия',content:'loader'}
-//    );
+alert( day_date+' | '+action_url );
         
     $.post(
-        '/action/schedule/drag_change/',
-        { starttime:starttime, timesize:timesize, day:day, classroom:classroom, teacher_id:teacher_id, lesson_id:lesson_id}
+        action_url,
+        { starttime:starttime, 
+          timesize:timesize, 
+          day:day, 
+          classroom:classroom, 
+          teacher_id:teacher_id, 
+          lesson_id:lesson_id,
+          date:day_date,
+          new_date:new_day_date
+        }
     );    
 }
 

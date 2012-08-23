@@ -63,7 +63,7 @@
                                     <div class="sch_day_in_group">
                                         <? foreach( $time_ar as $time ): ?>
                                         
-                                        <div class="sch_time_td sch_drop" starttime="<?=$time?>" day_dot="<?=$i?>" classroom="<?=$classroom_ar['id']?>" >
+                                        <div class="sch_time_td sch_drop" starttime="<?=$time?>" day_dot="<?=$i?>" classroom="<?=$classroom_ar['id']?>" date="<?=$week_date[$i]?>" >
                                             <? if( isset($timetable_list[$classroom_ar['id']][$i][$time]) ):  // если совпадает группа день и время
                                                     $lesson_ar      = $timetable_list[$classroom_ar['id']][$i][$time]; 
                                                     $group_ar       = $group_list[$lesson_ar['school_groups_id']];
@@ -74,7 +74,7 @@
                                                     $block_h        .= 'px';
                                             ?>
                                             
-                                            <div class="sch_drag"  timesize="<?=$timesize?>" lesson_id="<?=$lesson_ar['id']?>">
+                                            <div class="sch_drag"  timesize="<?=$timesize?>" lesson_id="<?=$lesson_ar['id']?>" date="<?=$week_date[$i]?>">
                                                 <div class="visual_drag" style="height: <?=$block_h?>" group_id="<?=$group_ar['id']?>" day="<?=$i?>" >
                                                     <div class="shc_vertical_line"></div>
                                                     <div class="sch_drag_groupname">

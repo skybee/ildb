@@ -261,7 +261,7 @@ class main extends CI_Controller{
         
         if( $period == 'week' ){
             $date_str_ar['start']   = get_date_str_ar( $period_ar['start'] ); 
-            $date_str_ar['stop']    = get_date_str_ar( $period_ar['stop'] );
+            $date_str_ar['stop']    = get_date_str_ar( $period_ar['last_day'] );
             $top_btn['title_str']   = $date_str_ar['start']['month_str'].' ('.$date_str_ar['start']['month_nmbr'].'.'.$date_str_ar['start']['day_nmbr'].' - '.$date_str_ar['stop']['month_nmbr'].'.'.$date_str_ar['stop']['day_nmbr'].')';
         }
         elseif( $period == 'month' ){
@@ -275,14 +275,14 @@ class main extends CI_Controller{
 //        print_r($pay_data);
 //        echo '</pre>';
 
-        $main_data_ar['title']          = $this->load->view('component/payment_top_view', $top_btn, TRUE);;
+        $main_data_ar['title']          = $this->load->view('component/payment_top_view', $top_btn, TRUE);
         $main_data_ar['left_menu']      = $this->load->view('component/left_menu_view', '', TRUE);
         $main_data_ar['right_content']  = $this->load->view('page/payment_view', $pay_data, TRUE);
         
         $this->load->view('main_view', $main_data_ar );
     }
     
-    function schedule( $realy = false ){
+    function schedule( $realy = false, $date = false ){
         $this->load->library('schedule_lib');
         
         $sch_data['time_column']        = $this->load->view('component/schedule/time_column_view','',TRUE);
@@ -302,8 +302,34 @@ class main extends CI_Controller{
         
         $main_data_ar['title']          = 'Расписание';
         $main_data_ar['left_menu']      = $this->load->view('component/left_menu_view', '', TRUE);
-        if( $realy == 'realy' )
+        
+        if( $realy == 'realy' ){
+            
+            //<top btn>
+            if( !$date )    $date   = date("Y-m-d");
+            $period_ar = get_month_or_week_period('week', $date );
+            $top_btn['next_prev_date']  = get_next_prev_date_for_payment( 'week', $period_ar );
+            $top_btn['month_week']      = 'week';
+            
+            $date_str_ar['start']   = get_date_str_ar( $period_ar['start'] ); 
+            $date_str_ar['stop']    = get_date_str_ar( $period_ar['last_day'] );
+            $top_btn['title_str']   = $date_str_ar['start']['month_str'].' ('.$date_str_ar['start']['month_nmbr'].'.'.$date_str_ar['start']['day_nmbr'].' - '.$date_str_ar['stop']['month_nmbr'].'.'.$date_str_ar['stop']['day_nmbr'].')';
+            echo '<pre>';
+            print_r($date_str_ar);
+            echo '</pre>';
+            //</top btn>
+            
+            $monday_date_ar =& $date_str_ar['start'];
+            
+            $sch_data['week_date'] = get_week_day_ar($monday_date_ar['day_nmbr'],$monday_date_ar['month_nmbr'],$monday_date_ar['year_nmbr']);
+            
+            echo '<pre>';
+            print_r($sch_data['week_date']);
+            echo '</pre>';
+            
             $main_data_ar['right_content']  = $this->load->view('page/schedule_realy_view', $sch_data, TRUE);
+            $main_data_ar['title']          = $this->load->view('component/schedule/realy_top_btn_view', $top_btn, TRUE);
+        }    
         else
             $main_data_ar['right_content']  = $this->load->view('page/schedule_view', $sch_data, TRUE);
         

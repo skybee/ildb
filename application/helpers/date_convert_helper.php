@@ -54,8 +54,9 @@ function get_month_or_week_period( $period = FALSE, $date = FALSE ){
         
         $next_mondey_date   = date("Y-m-d", strtotime("+1 week", strtotime($mondey_date) ) );
         
-        $result_ar['start'] = $mondey_date;
-        $result_ar['stop']  = $next_mondey_date;
+        $result_ar['start']     = $mondey_date;
+        $result_ar['stop']      = $next_mondey_date;
+        $result_ar['last_day']  = date("Y-m-d", strtotime("-1 day", strtotime($next_mondey_date) ) );
         
     }
     elseif( $period == 'month' ){
@@ -130,4 +131,13 @@ function get_timestop($time, $timesize){ //получает время нача�
     $result_time = date("H:i:00", strtotime("+ $plus_h hour $plus_min_str", strtotime($time) ) );
     
     return $result_time;
+}
+
+function get_week_day_ar($d, $m, $y){ //принимает день, месяц, год. Возвращает массив из 7 последующих дат
+    $date_ar = array();
+    for($i=0; $i<7; $i++){
+        $date_ar[$i+1] = date("Y-m-d", strtotime("+ $i day", strtotime("$y-$m-$d") ) );
+    }
+    
+    return $date_ar;
 }
