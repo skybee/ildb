@@ -78,7 +78,6 @@ function set_drag_data( drag ){
         action_url = '/action/schedule/drag_change/';
     }
     
-alert( day_date+' | '+action_url );
         
     $.post(
         action_url,

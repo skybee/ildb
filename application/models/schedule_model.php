@@ -58,8 +58,21 @@ class schedule_model extends CI_Model{
     }
     
     function realy_drag_change( $data ){ //изменение занятия в реальном расписании
+        $this->db->query("  DELETE FROM `timetable_changes` 
+                            WHERE
+                                `timetable_set_id`  = '{$_POST['lesson_id']}'
+                                AND
+                                `change_date`       = '{$_POST['date']}'");
         $this->db->query("  INSERT INTO `timetable_changes` 
                             SET 
-                                ");
+                                `timetable_set_id`  = '{$_POST['lesson_id']}',
+                                `change_date`       = '{$_POST['date']}',
+                                `new_date`          = '{$_POST['new_date']}',
+                                `classroom_id`      = '{$_POST['classroom']}',
+                                `user_id`           = '{$_POST['teacher_id']}',
+                                `day`               = '{$_POST['day']}',
+                                `time_start`        = '{$_POST['starttime']}',
+                                `time_stop`         = '{$_POST['stoptime']}'
+                         ");
     }
 }

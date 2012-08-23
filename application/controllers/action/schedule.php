@@ -19,7 +19,7 @@ class schedule extends CI_Controller{
     
     function realy_drag_change(){
         $_POST['stoptime'] = get_timestop($_POST['starttime'], $_POST['timesize']);
-        
-        print_r($_POST);
+        $this->schedule->realy_drag_change($_POST);
+//        print_r($_POST);
     }
 }
