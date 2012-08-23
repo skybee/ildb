@@ -56,4 +56,10 @@ class schedule_model extends CI_Model{
                             WHERE
                                 `id`={$data['lesson_id']}");
     }
+    
+    function realy_drag_change( $data ){ //изменение занятия в реальном расписании
+        $this->db->query("  INSERT INTO `timetable_changes` 
+                            SET 
+                                ");
+    }
 }
