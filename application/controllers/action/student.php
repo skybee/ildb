@@ -99,6 +99,25 @@ class student extends CI_Controller{
         
         echo json_encode( $anser_ar );
     }
+    
+    private function get_individ_group_id( $student_id ){ //принимает id студента, возвращает id индивидуальной группы или false
+        $query = $this->db->query("         SELECT school_groups.id 
+                                            FROM 
+                                                `school_groups`, `student`, `student_school_groups` 
+                                            WHERE
+                                                school_groups.group_format_id = 1
+                                                AND
+                                                school_groups.id = student_school_groups.school_groups_id
+                                                AND
+                                                student_school_groups.student_id = {$student_id}
+                                        ");
+                $row = $query->row_array();
+                if( isset($row['id']) ){
+                    return $row['id'];
+                }
+                else 
+                    return FALSE;
+    }
 
     function del_student(){
 //        print_r($_POST);
@@ -106,6 +125,15 @@ class student extends CI_Controller{
         if( $_POST['action'] == 'arhive' ){
             foreach( $_POST['id_ar'] as $st_id ){
                 $st_id = (int) $st_id;
+                
+                // <удалени записи из расписания(для индивид)>
+                $individ_group_id = $this->get_individ_group_id( $st_id );
+                if( $individ_group_id ){
+                    $this->db->query("DELETE FROM `timetable_set`       WHERE `school_groups_id` = {$individ_group_id} ");
+                    $this->db->query("DELETE FROM `timetable_changes`   WHERE `school_groups_id` = {$individ_group_id} ");
+                }    
+                // </удалени записи из расписания(для индивид)>
+                
                 $this->db->query("UPDATE `student` SET `delete`='arhive' WHERE `id` = {$st_id} ");
             }
             
@@ -115,6 +143,15 @@ class student extends CI_Controller{
         elseif( $_POST['action'] == 'delete' ){
             foreach( $_POST['id_ar'] as $st_id ){
                 $st_id = (int) $st_id;
+                
+                // <удалени записи из расписания(для индивид)>
+                $individ_group_id = $this->get_individ_group_id( $st_id );
+                if( $individ_group_id ){
+                    $this->db->query("DELETE FROM `timetable_set`       WHERE `school_groups_id` = {$individ_group_id} ");
+                    $this->db->query("DELETE FROM `timetable_changes`   WHERE `school_groups_id` = {$individ_group_id} ");
+                }    
+                // </удалени записи из расписания(для индивид)>
+                    
                 $this->db->query("UPDATE `student` SET `delete`='delete' WHERE `id` = {$st_id} ");
                 $this->db->query("DELETE FROM `student_school_groups` WHERE `student_id` = {$st_id} ");
             }
