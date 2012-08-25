@@ -35,14 +35,33 @@ class schedule_model extends CI_Model{
         return TRUE;
     }
     
-    function get_timetable(){
-        $query = $this->db->query(" SELECT * FROM `timetable_set`");
-        
+    function get_timetable( $date_start = false, $date_stop = false){
         $result_ar = NULL;
+        $where_sql = '';
+        
+        // <вытаскивание замен>
+        if($date_start && $date_stop){
+            $query_realy = $this->db->query("   SELECT *, `timetable_set_id` AS `id` FROM `timetable_changes` 
+                                                WHERE
+                                                    `new_date` >= '$date_start' 
+                                                    AND 
+                                                    `new_date` <= '$date_stop'
+                                            ");
+
+            $i=0;
+            foreach( $query_realy->result_array() as $row_realy ){
+                $result_ar[$row_realy['classroom_id']][$row_realy['day']][$row_realy['time_start']] = $row_realy;
+            }
+            $where_sql = " WHERE `id` NOT IN 
+                                (SELECT `timetable_set_id` FROM `timetable_changes`
+                                WHERE `change_date` >= '$date_start' AND `change_date` <= '$date_stop')";
+        }
+        // </вытаскивание замен>
+        
+        $query = $this->db->query(" SELECT * FROM `timetable_set` $where_sql ");
         foreach( $query->result_array() as $row ){
             $result_ar[$row['classroom_id']][$row['day']][$row['time_start']] = $row;
         }
-        
         return $result_ar;
     }
     
@@ -72,7 +91,8 @@ class schedule_model extends CI_Model{
                                 `user_id`           = '{$_POST['teacher_id']}',
                                 `day`               = '{$_POST['day']}',
                                 `time_start`        = '{$_POST['starttime']}',
-                                `time_stop`         = '{$_POST['stoptime']}'
+                                `time_stop`         = '{$_POST['stoptime']}',
+                                `school_groups_id`  = '{$_POST['group_id']}'
                          ");
     }
 }

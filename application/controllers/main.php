@@ -290,15 +290,13 @@ class main extends CI_Controller{
         $sch_data['group_list']         = $this->list->get_groups();
         $tmp_group_ar                   = $this->group->get_individ_groups();
         $sch_data['teacher_list']       = $this->list->get_teacher_lang();
-        $sch_data['timetable_list']     = $this->schedule->get_timetable();
+        if(!$realy)
+            $sch_data['timetable_list']     = $this->schedule->get_timetable('2012-09-01','2012-09-06');
         $sch_data['time_ar']            = $this->schedule_lib->get_time_ar();
         
         foreach( $tmp_group_ar as $key => $val) // дополнение массива групп индивидуальными группами
             $sch_data['group_list'][$key] = $val;
         
-//        echo '<pre>';
-//        print_r($sch_data['timetable_list']);
-//        echo '</pre>';
         
         $main_data_ar['title']          = 'Расписание';
         $main_data_ar['left_menu']      = $this->load->view('component/left_menu_view', '', TRUE);
@@ -314,19 +312,13 @@ class main extends CI_Controller{
             $date_str_ar['start']   = get_date_str_ar( $period_ar['start'] ); 
             $date_str_ar['stop']    = get_date_str_ar( $period_ar['last_day'] );
             $top_btn['title_str']   = $date_str_ar['start']['month_str'].' ('.$date_str_ar['start']['month_nmbr'].'.'.$date_str_ar['start']['day_nmbr'].' - '.$date_str_ar['stop']['month_nmbr'].'.'.$date_str_ar['stop']['day_nmbr'].')';
-            echo '<pre>';
-            print_r($date_str_ar);
-            echo '</pre>';
             //</top btn>
             
             $monday_date_ar =& $date_str_ar['start'];
             
-            $sch_data['week_date'] = get_week_day_ar($monday_date_ar['day_nmbr'],$monday_date_ar['month_nmbr'],$monday_date_ar['year_nmbr']);
-            
-            echo '<pre>';
-            print_r($sch_data['week_date']);
-            echo '</pre>';
-            
+            $sch_data['timetable_list']     = $this->schedule->get_timetable($period_ar['start'], $period_ar['last_day']);
+            $sch_data['week_date']          = get_week_day_ar($monday_date_ar['day_nmbr'],$monday_date_ar['month_nmbr'],$monday_date_ar['year_nmbr']);
+                      
             $main_data_ar['right_content']  = $this->load->view('page/schedule_realy_view', $sch_data, TRUE);
             $main_data_ar['title']          = $this->load->view('component/schedule/realy_top_btn_view', $top_btn, TRUE);
         }    

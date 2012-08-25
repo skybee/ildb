@@ -74,7 +74,7 @@
                                                     $block_h        .= 'px';
                                             ?>
                                             
-                                            <div class="sch_drag"  timesize="<?=$timesize?>" lesson_id="<?=$lesson_ar['id']?>" date="<?=$week_date[$i]?>">
+                                            <div class="sch_drag"  timesize="<?=$timesize?>" lesson_id="<?=$lesson_ar['id']?>" date="<?=$week_date[$i]?>" group_id="<?=$group_ar['id']?>">
                                                 <div class="visual_drag" style="height: <?=$block_h?>" group_id="<?=$group_ar['id']?>" day="<?=$i?>" >
                                                     <div class="shc_vertical_line"></div>
                                                     <div class="sch_drag_groupname">

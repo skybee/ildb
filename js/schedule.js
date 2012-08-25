@@ -67,6 +67,7 @@ function set_drag_data( drag ){
     lesson_id       = $('.sch_drag',drag).attr('lesson_id');
     teacher_id      = $('.sch_drag_teachername',drag).attr('teacher_id');
     day_date        = $('.sch_drag',drag).attr('date');
+    group_id        = $('.sch_drag',drag).attr('group_id');
     new_day_date    = $(drag).attr('date');
     day             = $(drag).attr('day_dot');
     classroom       = $(drag).attr('classroom');
@@ -88,7 +89,8 @@ function set_drag_data( drag ){
           teacher_id:teacher_id, 
           lesson_id:lesson_id,
           date:day_date,
-          new_date:new_day_date
+          new_date:new_day_date,
+          group_id:group_id
         }
     );    
 }
