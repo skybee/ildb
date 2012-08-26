@@ -82,7 +82,7 @@ function set_drag_data( drag ){
         
     $.post(
         action_url,
-        { starttime:starttime, 
+        {starttime:starttime, 
           timesize:timesize, 
           day:day, 
           classroom:classroom, 
@@ -93,6 +93,31 @@ function set_drag_data( drag ){
           group_id:group_id
         }
     );    
+}
+
+function get_check_lesson_data(){
+    drag = $('.lesson_data');
+    
+    starttime       = $(drag).attr('starttime');
+    timesize        = $('.sch_drag',drag).attr('timesize');
+    lesson_id       = $('.sch_drag',drag).attr('lesson_id');
+    teacher_id      = $('.sch_drag_teachername',drag).attr('teacher_id');
+    day_date        = $('.sch_drag',drag).attr('date');
+    group_id        = $('.sch_drag',drag).attr('group_id');
+    new_day_date    = $(drag).attr('date');
+    day             = $(drag).attr('day_dot');
+    classroom       = $(drag).attr('classroom');
+
+    return {starttime:starttime, 
+            timesize:timesize, 
+            day:day, 
+            classroom:classroom, 
+            teacher_id:teacher_id, 
+            lesson_id:lesson_id,
+            date:day_date,
+            new_date:new_day_date,
+            group_id:group_id
+            };
 }
 
 
@@ -146,9 +171,13 @@ $(document).ready(function() {
         
         group_id = $(this).attr('group_id');
         
+        //добавление класса индифицирующего выбранный элемент
+        $('.visual_drag').closest('.sch_time_td').removeClass('lesson_data');
+        $(this).closest('.sch_time_td').addClass('lesson_data');
+        
         $('.visual_drag').css({'box-shadow':'none'});
         $('.visual_drag[group_id="'+group_id+'"]').css({'box-shadow':'0px 0px 0px 3px rgb(25, 129, 184)'});
-//        $(this).css({'box-shadow':'0px 0px 0px 3px rgb(25, 183, 36)'});
+        $(this).css({'box-shadow':'0px 0px 0px 3px rgb(25, 183, 36)'});
     });
     // </подсветка выбранных групп>
     

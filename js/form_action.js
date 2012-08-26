@@ -39,6 +39,22 @@ function send_post(dataObj, url, modalTxtObj ){
 }
 
 
+function ajax_show_modal( url, dataObj ){
+   $.post(
+            url, 
+            dataObj,
+            function(anserAr){
+                show_modal( anserAr['title'], anserAr['content'], anserAr['close_link']);
+        
+            if( anserAr['script'] )
+                eval(anserAr['script']);
+            },
+            'json'
+     )
+    .error(function() {show_modal( 'Произошла ошибка', 'Попробуйте повторить действие еще раз, либо перегрузить страницу')}) 
+}
+
+
 function show_modal( title, content, close_link){
     
     
