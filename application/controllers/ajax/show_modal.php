@@ -14,8 +14,8 @@ class show_modal extends CI_Controller{
     
     
     function schedule_time(){
-        $return_ar['title']     = 'Время занятия';
-        $return_ar['content']   = $this->load->view('ajax/modal_window/shedule_time_view', array('post'=>$_POST), TRUE );
+        $return_ar['title']     = 'Изменение длительность занятия';
+        $return_ar['content']   = $this->load->view('ajax/modal_window/shedule_time_view', $_POST, TRUE );
         
         echo json_encode($return_ar);
     }

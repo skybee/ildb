@@ -32,7 +32,7 @@
             
             
             <!-- MODAL WINDOW -->
-            <div id="modal_bg">
+            <div id="modal_bg" >
                 <center>
                     <div id="modal_dialog_block">
                         <div id="modal_dialog_close" onclick="close_modal()"></div>
