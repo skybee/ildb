@@ -37,6 +37,11 @@ function del_street_light(){ //выключение подсветки ячее�
     $('.main_schadule_tbl div[starttime]').css({'box-shadow':'none'});
 }
 
+function del_check_lesson_group(){
+    $('.visual_drag').closest('.sch_time_td').removeClass('lesson_data');
+    $('.visual_drag').css({'box-shadow':'none'});
+}
+
 function hide_empty_dot(){ // скрывает пустые ячейки
     less_block_ar = $('.sch_drag'); //получениет всех блоков занятий
     
@@ -62,6 +67,12 @@ function show_empty_dot(){ // показывает скрытые пустые �
 }
 
 function set_drag_data( drag ){
+    //<подсветка и добавление класса к драг блоку>
+//    group_id = $(drag).attr('group_id');
+//    $(drag).addClass('lesson_data');
+//    $('.visual_drag').css({'box-shadow':'none'});
+    //<подсветка и добавление класса к драг блоку>
+    
     starttime       = $(drag).attr('starttime');
     timesize        = $('.sch_drag',drag).attr('timesize');
     lesson_id       = $('.sch_drag',drag).attr('lesson_id');
@@ -71,6 +82,8 @@ function set_drag_data( drag ){
     new_day_date    = $(drag).attr('date');
     day             = $(drag).attr('day_dot');
     classroom       = $(drag).attr('classroom');
+    
+//    alert(starttime);
     
     if( day_date != undefined ){
         action_url = '/action/schedule/realy_drag_change/';
@@ -132,6 +145,7 @@ $(document).ready(function() {
         start : function(){
                     sch_set_empty_dot( this );
                     del_street_light();
+                    del_check_lesson_group();
                 }
     });
     $('.sch_drop').droppable({
@@ -183,6 +197,15 @@ $(document).ready(function() {
     
     // показ/скрытие пустых ячеек
     $('#hide_empty_dot').toggle( function(){hide_empty_dot()}, function(){show_empty_dot()} );
+    
+    //убрать подсветку ячеек и блоков при клике по свободному полю
+    $('.sch_time_td').click(function(){
+        innerBlock = $(this).children('div');
+        if( innerBlock.length < 1){
+            del_street_light();
+            del_check_lesson_group();
+        }
+    });
     
     // выключение подсветки ячеек по клику на пустом поле
 //    $('.main_schadule_tbl div[starttime]').click(function(){ del_street_light() });

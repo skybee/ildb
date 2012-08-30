@@ -26,11 +26,23 @@ class schedule extends CI_Controller{
     function change_timesize(){
         
         $_POST['stoptime']  = get_timestop($_POST['starttime'], $_POST['timesize']);
-        $this->schedule->realy_drag_change($_POST);
+        
+        if( $_POST['date'] != false ){
+            $this->schedule->realy_drag_change($_POST);
+        }
+        else{
+            $this->schedule->drag_change($_POST);
+        }
+        
+        $block_h = 29 + ($_POST['timesize']-2)*18; //дефолт 2 ячейки(29px)
+        $block_h .= 'px';
         
         $anser_ar['title']      = 'Время занятие измено';
-        $anser_ar['content']    = '<pre>'.print_r($_POST, true).'</pre>';
-//        $anser_ar['script']     = "alert(123)";
+        $anser_ar['content']    = '';
+        $anser_ar['script']     = ' $(".lesson_data .visual_drag").css({height:"'.$block_h.'"});
+                                    $(".lesson_data .sch_drag").attr("timesize", "'.$_POST['timesize'].'");
+                                    del_street_light();
+                                  ';
         
         echo json_encode( $anser_ar );
     }
