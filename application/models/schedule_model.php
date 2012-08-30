@@ -4,6 +4,8 @@
 class schedule_model extends CI_Model{
     function __construct() {
         parent::__construct();
+        
+        $this->load->helper('date_convert');
     }
     
     function upd_from_group( $sch_data, $group_id ){
@@ -94,5 +96,21 @@ class schedule_model extends CI_Model{
                                 `time_stop`         = '{$_POST['stoptime']}',
                                 `school_groups_id`  = '{$_POST['group_id']}'
                          ");
+    }
+    
+    function create_tmp_tbl( $date ){
+        $date_ar = get_month_or_week_period('week', $date);
+        $tbl_name = 'sch_'.str_replace('-', '_', $date_ar['start']);
+        $this->db->query("CREATE TEMPORARY TABLE IF NOT EXISTS `$tbl_name`
+                            (
+                            `id` int(11) NOT NULL auto_increment,
+                            `classroom_id` int(5) NOT NULL,
+                            `school_groups_id` int(5) NOT NULL,
+                            `user_id` int(5) NOT NULL,
+                            `day` int(1) NOT NULL,
+                            `time_start` time NOT NULL,
+                            `time_stop` time NOT NULL,
+                            PRIMARY KEY  (`id`)
+                            ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
     }
 }

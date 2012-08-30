@@ -50,4 +50,60 @@ class schedule_lib{
         
         return $result_str;
     }
+    
+    function check_lesson_valid($day, $classroom, $starttime, $stoptime, $lesson_id = false ){//проверяет попадает ли интервал времени в уже существующее время занятия в этот день в этом кабинете
+        
+        if( $lesson_id )
+            $less_where = " AND `id` != {$lesson_id} ";
+        else
+            $less_where = '';
+        
+        $query = $this->ci->db->query(" SELECT COUNT(*) AS 'count' FROM `timetable_set` 
+                                        WHERE
+                                            `classroom_id` = '{$classroom}'
+                                            AND
+                                            `day` = '{$day}'
+                                            AND
+                                            (
+                                                (`time_start`>= '{$starttime}' AND `time_start` < '{$stoptime}')
+                                                OR
+                                                (`time_stop` > '{$starttime}' AND `time_stop` <= '{$stoptime}')
+                                            )
+                                            {$less_where}");
+        $row = $query->row();
+        
+        if( $row->count > 0)
+            return FALSE;
+        else
+            return TRUE;
+
+    }
+    
+    function check_lesson_valid_realy($day, $classroom, $starttime, $stoptime, $week_date, $lesson_id = false ){//проверяет попадает ли интервал времени в уже существующее время занятия в этот день в этом кабинете
+        
+        if( $lesson_id )
+            $less_where = " AND `id` != {$lesson_id} ";
+        else
+            $less_where = '';
+        
+        $query = $this->ci->db->query(" SELECT COUNT(*) AS 'count' FROM `timetable_set` 
+                                        WHERE
+                                            `classroom_id` = '{$classroom}'
+                                            AND
+                                            `day` = '{$day}'
+                                            AND
+                                            (
+                                                (`time_start`>= '{$starttime}' AND `time_start` < '{$stoptime}')
+                                                OR
+                                                (`time_stop` > '{$starttime}' AND `time_stop` <= '{$stoptime}')
+                                            )
+                                            {$less_where}");
+        $row = $query->row();
+        
+        if( $row->count > 0)
+            return FALSE;
+        else
+            return TRUE;
+
+    }
 }

@@ -14,8 +14,14 @@ class show_modal extends CI_Controller{
     
     
     function schedule_time(){
-        $return_ar['title']     = 'Изменение длительность занятия';
-        $return_ar['content']   = $this->load->view('ajax/modal_window/shedule_time_view', $_POST, TRUE );
+        if( isset($_POST['lesson_id']) ){
+            $return_ar['title']     = 'Изменение длительность занятия';
+            $return_ar['content']   = $this->load->view('ajax/modal_window/shedule_time_view', $_POST, TRUE );
+        }
+        else{
+            $return_ar['title']     = 'Ошибка';
+            $return_ar['content']   = 'Не выбранно занятие для редактирования';
+        }
         
         echo json_encode($return_ar);
     }

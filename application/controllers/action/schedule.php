@@ -6,6 +6,7 @@ class schedule extends CI_Controller{
     function __construct() {
         parent::__construct();
         $this->load->model('schedule_model', 'schedule', TRUE);
+        $this->load->library('schedule_lib');
         $this->load->helper('valid_data');
         $this->load->helper('date_convert');
         
@@ -31,6 +32,13 @@ class schedule extends CI_Controller{
             $this->schedule->realy_drag_change($_POST);
         }
         else{
+            if( !$this->schedule_lib->check_lesson_valid($_POST['day'], $_POST['classroom'], $_POST['starttime'], $_POST['stoptime'], $_POST['lesson_id']) ){
+                $anser_ar['title']      = 'Ошибка! - Конфликт времени';
+                $anser_ar['content']    = 'Вероятно в выбранное вами время уже идут занятия';
+                
+                echo json_encode( $anser_ar );
+                return;
+            }
             $this->schedule->drag_change($_POST);
         }
         
