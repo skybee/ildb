@@ -285,7 +285,7 @@ class main extends CI_Controller{
     function schedule( $realy = false, $date = false ){
         $this->load->library('schedule_lib');
         
-        echo $this->schedule->create_tmp_tbl('2012-08-26');
+//        echo $this->schedule->create_tmp_tbl('2012-08-26');
         
         $sch_data['time_column']        = $this->load->view('component/schedule/time_column_view','',TRUE);
         $sch_data['classroom_list']     = $this->list->get_classroom();
