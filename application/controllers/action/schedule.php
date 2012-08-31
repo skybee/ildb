@@ -29,6 +29,13 @@ class schedule extends CI_Controller{
         $_POST['stoptime']  = get_timestop($_POST['starttime'], $_POST['timesize']);
         
         if( $_POST['date'] != false ){
+            if( !$this->schedule_lib->check_lesson_valid_realy($_POST['day'], $_POST['classroom'], $_POST['starttime'], $_POST['stoptime'], $_POST['date'], $_POST['lesson_id']) ){
+                $anser_ar['title']      = 'Ошибка! - Конфликт времени';
+                $anser_ar['content']    = 'Вероятно в выбранное вами время уже идут занятия';
+                
+                echo json_encode( $anser_ar );
+                return;
+            }
             $this->schedule->realy_drag_change($_POST);
         }
         else{

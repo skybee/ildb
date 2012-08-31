@@ -141,3 +141,10 @@ function get_week_day_ar($d, $m, $y){ //принимает день, месяц,
     
     return $date_ar;
 }
+
+//function get_count_day($date_start, $date_stop){//принимает начальную и конечную дату, возвращает количество дней между ними. формат даты YYYY-MM-DD
+//    $time_1 = timestamp_to_time($date_start);
+//    $time_2 = timestamp_to_time($date_stop);
+//    
+//    return ($time_2 - $time_1)/3600/24;
+//}

@@ -285,15 +285,13 @@ class main extends CI_Controller{
     function schedule( $realy = false, $date = false ){
         $this->load->library('schedule_lib');
         
-//        echo $this->schedule->create_tmp_tbl('2012-08-26');
-        
         $sch_data['time_column']        = $this->load->view('component/schedule/time_column_view','',TRUE);
         $sch_data['classroom_list']     = $this->list->get_classroom();
         $sch_data['group_list']         = $this->list->get_groups();
         $tmp_group_ar                   = $this->group->get_individ_groups();
         $sch_data['teacher_list']       = $this->list->get_teacher_lang();
         if(!$realy)
-            $sch_data['timetable_list']     = $this->schedule->get_timetable('2012-09-01','2012-09-06');
+            $sch_data['timetable_list']     = $this->schedule->get_timetable();
         $sch_data['time_ar']            = $this->schedule_lib->get_time_ar();
         
         foreach( $tmp_group_ar as $key => $val) // дополнение массива групп индивидуальными группами

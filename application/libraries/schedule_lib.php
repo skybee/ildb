@@ -5,6 +5,7 @@ class schedule_lib{
     
     function __construct() {
         $this->ci =& get_instance();
+        $this->ci->load->model('schedule_model','schedule',TRUE);
     }
     
     function get_time_ar(){
@@ -79,14 +80,18 @@ class schedule_lib{
 
     }
     
-    function check_lesson_valid_realy($day, $classroom, $starttime, $stoptime, $week_date, $lesson_id = false ){//проверяет попадает ли интервал времени в уже существующее время занятия в этот день в этом кабинете
+    function check_lesson_valid_realy($day, $classroom, $starttime, $stoptime, $day_date, $lesson_id = false ){//проверяет попадает ли интервал времени в уже существующее время занятия в этот день в этом кабинете
+        
+        $week_ar = get_month_or_week_period('week', $day_date);
+        
+        $tmp_table_name = $this->ci->schedule->create_changes_tmp_tbl($week_ar['start'], $week_ar['last_day'] );
         
         if( $lesson_id )
-            $less_where = " AND `id` != {$lesson_id} ";
+            $less_where = " AND `lesson_id` != {$lesson_id} ";
         else
             $less_where = '';
         
-        $query = $this->ci->db->query(" SELECT COUNT(*) AS 'count' FROM `timetable_set` 
+        $query = $this->ci->db->query(" SELECT COUNT(*) AS 'count' FROM `{$tmp_table_name}` 
                                         WHERE
                                             `classroom_id` = '{$classroom}'
                                             AND
