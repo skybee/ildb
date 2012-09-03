@@ -61,4 +61,12 @@ class schedule extends CI_Controller{
         
         echo json_encode( $anser_ar );
     }
+    
+    function change_teacher(){
+        
+        $anser_ar['title']      = 'Ошибка! - Конфликт времени';
+        $anser_ar['content']    = '<pre>'.print_r($_POST,true).'</pre>';
+                
+        echo json_encode( $anser_ar );
+    }
 }

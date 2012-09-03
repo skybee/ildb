@@ -100,6 +100,7 @@ class schedule_model extends CI_Model{
     
     function create_changes_tmp_tbl( $date_start, $date_stop ){ //принимает дату в формате YYYY-MM-DD, возвращает имя временной таблицы
         $table_name = 'schedule_'.rand(100,999999);
+        //TEMPORARY
         $this->db->query("CREATE TEMPORARY TABLE IF NOT EXISTS `$table_name`
                             (
                             `id` int(11) NOT NULL auto_increment,
@@ -107,15 +108,17 @@ class schedule_model extends CI_Model{
                             `classroom_id` int(5) NOT NULL,
                             `school_groups_id` int(5) NOT NULL,
                             `user_id` int(5) NOT NULL,
+                            `chng_user_id` int(5) NOT NULL,
                             `day` int(1) NOT NULL,
                             `time_start` time NOT NULL,
                             `time_stop` time NOT NULL,
                             `date` date NOT NULL,
+                            `cancel` varchar(10) collate utf8_unicode_ci NOT NULL default 'no',
                             PRIMARY KEY  (`id`)
                             ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
         
         //создание массива стандартного рассписания
-        $query = $this->db->query("SELECT * FROM `timetable_set` ");
+        $query = $this->db->query("SELECT *, `user_id` AS 'chng_user_id', 'no' AS 'cancel'  FROM `timetable_set` ");
         $sch_default_ar = NULL;
         foreach( $query->result_array() as $row ){
             $sch_default_ar[$row['day']] [$row['id']] = $row;
@@ -165,10 +168,12 @@ class schedule_model extends CI_Model{
                                     'classroom_id'      =>$changes_ar['classroom_id'],
                                     'school_groups_id'  =>$changes_ar['school_groups_id'],
                                     'user_id'           =>$changes_ar['user_id'],
+                                    'chng_user_id'      =>$changes_ar['chng_user_id'],
                                     'day'               =>$changes_ar['day'],
                                     'time_start'        =>$changes_ar['time_start'],
                                     'time_stop'         =>$changes_ar['time_stop'],
-                                    'date'              =>$changes_ar['new_date']
+                                    'date'              =>$changes_ar['new_date'],
+                                    'cancel'            =>$changes_ar['cancel'],
                                 );
         }
         
@@ -181,16 +186,18 @@ class schedule_model extends CI_Model{
                                 '{$less_ar['id']}', 
                                 '{$less_ar['classroom_id']}', 
                                 '{$less_ar['school_groups_id']}', 
-                                '{$less_ar['user_id']}', 
+                                '{$less_ar['user_id']}',
+                                '{$less_ar['chng_user_id']}',
                                 '{$less_ar['day']}', 
                                 '{$less_ar['time_start']}', 
                                 '{$less_ar['time_stop']}', 
-                                '{$less_ar['date']}' 
+                                '{$less_ar['date']}', 
+                                '{$less_ar['cancel']}'
                             )";
         }
         
         $this->db->query("  INSERT INTO `{$table_name}`
-                            (`id`, `lesson_id`, `classroom_id`, `school_groups_id`, `user_id`, `day`, `time_start`, `time_stop`, `date` )
+                            (`id`, `lesson_id`, `classroom_id`, `school_groups_id`, `user_id`, `chng_user_id`, `day`, `time_start`, `time_stop`, `date`, `cancel` )
                             VALUES
                             {$sql_values}
                         ");

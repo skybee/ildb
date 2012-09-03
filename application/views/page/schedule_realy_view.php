@@ -9,7 +9,7 @@
                                 <a href="#" class="top_left_btn_action" style="left:10px;">Добавить</a>
 
                                 <a href="#" class="top_left_btn top_left_btn_left top_left_btn_movement"         style="left:120px;"><div></div></a>
-                                <a href="#" class="top_left_btn top_left_btn_center top_left_btn_movement2"         style="left:160px;"><div></div></a>
+                                <a href="javascript:void(0)" onclick="ajax_show_modal('/ajax/show_modal/schedule_teacher/', get_check_lesson_data())" class="top_left_btn top_left_btn_center top_left_btn_movement2"         style="left:160px;"><div></div></a>
                                 <a href="#" class="top_left_btn top_left_btn_center top_left_btn_close"         style="left:200px;"><div></div></a>
                                 <a href="javascript:void(0)" onclick="ajax_show_modal('/ajax/show_modal/schedule_time/', get_check_lesson_data())" class="top_left_btn top_left_btn_right top_left_btn_timer"         style="left:240px;"><div></div></a>
 
