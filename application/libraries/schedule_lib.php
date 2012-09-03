@@ -111,4 +111,52 @@ class schedule_lib{
             return TRUE;
 
     }
+     
+    function check_teacher_valid($day, $starttime, $stoptime, $teacher_id){
+        $query = $this->ci->db->query(" SELECT COUNT(*) AS 'count' FROM `timetable_set` 
+                                        WHERE
+                                            `user_id` = '{$teacher_id}'
+                                            AND
+                                            `day` = '{$day}'
+                                            AND
+                                            (
+                                                (`time_start`>= '{$starttime}' AND `time_start` < '{$stoptime}')
+                                                OR
+                                                (`time_stop` > '{$starttime}' AND `time_stop` <= '{$stoptime}')
+                                            )
+                                      ");                                                
+                                            
+        $row = $query->row();
+        
+        if( $row->count > 0)
+            return FALSE;
+        else
+            return TRUE;
+    }
+    
+    function check_teacher_valid_realy($day, $starttime, $stoptime, $teacher_id, $day_date){
+        $week_ar = get_month_or_week_period('week', $day_date);
+        
+        $tmp_table_name = $this->ci->schedule->create_changes_tmp_tbl($week_ar['start'], $week_ar['last_day'] );
+        
+        $query = $this->ci->db->query(" SELECT COUNT(*) AS 'count' FROM `{$tmp_table_name}` 
+                                        WHERE
+                                            `user_id` = '{$teacher_id}'
+                                            AND
+                                            `day` = '{$day}'
+                                            AND
+                                            (
+                                                (`time_start`>= '{$starttime}' AND `time_start` < '{$stoptime}')
+                                                OR
+                                                (`time_stop` > '{$starttime}' AND `time_stop` <= '{$stoptime}')
+                                            )
+                                       ");
+                                                                                               
+        $row = $query->row();
+        
+        if( $row->count > 0)
+            return FALSE;
+        else
+            return TRUE;
+    }
 }

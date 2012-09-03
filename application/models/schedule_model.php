@@ -73,9 +73,10 @@ class schedule_model extends CI_Model{
                                 `classroom_id`  = {$data['classroom']},
                                 `day`           = {$data['day']},
                                 `time_start`    = '{$data['starttime']}',
-                                `time_stop`     = '{$data['stoptime']}'
+                                `time_stop`     = '{$data['stoptime']}',
+                                `user_id`       = '{$data['teacher_id']}'
                             WHERE
-                                `id`={$data['lesson_id']}");
+                                `id`={$data['lesson_id']}");                                
     }
     
     function realy_drag_change( $data ){ //изменение занятия в реальном расписании
@@ -91,6 +92,7 @@ class schedule_model extends CI_Model{
                                 `new_date`          = '{$data['new_date']}',
                                 `classroom_id`      = '{$data['classroom']}',
                                 `user_id`           = '{$data['teacher_id']}',
+                                `chng_user_id`      = '{$data['new_teacher_id']}',
                                 `day`               = '{$data['day']}',
                                 `time_start`        = '{$data['starttime']}',
                                 `time_stop`         = '{$data['stoptime']}',

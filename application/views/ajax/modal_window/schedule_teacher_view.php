@@ -3,7 +3,7 @@
 
 <form action="/action/schedule/change_teacher/" method="post" id="change_teacher_form">
     <input type="hidden" name="starttime"   value="<?if(isset($starttime))  echo $starttime?>" />
-<!--    <input type="hidden" name="timesize"    value="<?//if(isset($timesize))   echo $timesize?>" />-->
+    <input type="hidden" name="timesize"    value="<?if(isset($timesize))   echo $timesize?>" />
     <input type="hidden" name="day"         value="<?if(isset($day))        echo $day?>" />
     <input type="hidden" name="classroom"   value="<?if(isset($classroom))  echo $classroom?>" />
     <input type="hidden" name="teacher_id"  value="<?if(isset($teacher_id)) echo $teacher_id?>" />
@@ -12,9 +12,9 @@
     <input type="hidden" name="new_date"    value="<?if(isset($new_date))   echo $new_date?>" />
     <input type="hidden" name="group_id"    value="<?if(isset($group_id))   echo $group_id?>" />
     
-    <select name="new_teacher" class="greyselect" style="width: 235px">
+        <select name="new_teacher_id" class="greyselect" style="width: 235px">
         <? foreach($teachers_list as $teacher_ar ): ?>
-            <option value="<?=$teacher_ar['id']?>" <?if($teacher_ar['id'] == $teacher_id) echo 'selected="selected"'?> >   
+            <option value="<?=$teacher_ar['id']?>"  <?if($teacher_ar['id'] == $teacher_id) echo 'selected="selected"'?> >   
                 <?=$teacher_ar['fio_sname']." ".$teacher_ar['fio_name']?>
             </option>
         <? endforeach; ?>
