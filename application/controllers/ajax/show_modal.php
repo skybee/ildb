@@ -7,8 +7,10 @@ class show_modal extends CI_Controller{
         parent::__construct();
         
         $this->load->database();
+        $this->load->helper('date_convert');
         $this->load->helper('valid_data');
         $this->load->model('list_model','list');
+        $this->load->model('group_model','group');
         
         $_POST = post_valid( $_POST );
     }
@@ -49,10 +51,13 @@ class show_modal extends CI_Controller{
     function schedule_cancel(){
         if( $this->is_less_checked() ){
             
-            $_POST['teachers_list']  = $this->list->get_teacher_lang();
+            $_POST['teachers_list'] = $this->list->get_teacher_lang();
+            $_POST['group_ar']      = $this->group->get_group_info( $_POST['group_id'] );  
+            $_POST['individual_ar'] = $this->group->get_individ_groups();
+             
             
             $return_ar['title']     = 'Отмена занятия';
-            $return_ar['content']   = $this->load->view('ajax/modal_window/schedule__view', $_POST, TRUE );
+            $return_ar['content']   = $this->load->view('ajax/modal_window/schedule_cancel_view', $_POST, TRUE );
         
             echo json_encode($return_ar);
         }

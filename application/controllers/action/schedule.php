@@ -54,7 +54,7 @@ class schedule extends CI_Controller{
         $block_h .= 'px';
         
         $anser_ar['title']      = 'Время занятие измено';
-        $anser_ar['content']    = '';
+        $anser_ar['content']    = 'Не забудьте предупредить студентов и преподавателя об изменение графика.';
         $anser_ar['script']     = ' $(".lesson_data .visual_drag").css({height:"'.$block_h.'"});
                                     $(".lesson_data .sch_drag").attr("timesize", "'.$_POST['timesize'].'");
                                     del_street_light();
@@ -98,6 +98,19 @@ class schedule extends CI_Controller{
                                     $(".sch_drag_teachername",drag).attr("teacher_id", "'.$_POST['new_teacher_id'].'");
                                     $(".sch_drag_teachername",drag).text("'.$teacher_info_ar['fio_name'].' '.$teacher_info_ar['fio_sname'].'")';
         
+        echo json_encode( $anser_ar );
+    }
+    
+    function cancel_lesson(){
+        $_POST['stoptime'] = get_timestop($_POST['starttime'], $_POST['timesize']);
+        $change_id = $this->schedule->realy_drag_change($_POST);
+        $this->db->query("UPDATE `timetable_changes` SET `cancel`='yes' WHERE `id`='{$change_id}' ");
+        
+        $anser_ar['title']      = 'Занятие отменено';
+        $anser_ar['content']    = 'Не забудьте предупредить студентов и преподавателя об изменение графика.';
+        $anser_ar['script']     = ' $(".lesson_data").empty();
+                                    del_street_light();
+                                  ';
         echo json_encode( $anser_ar );
     }
 }

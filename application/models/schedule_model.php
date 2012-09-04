@@ -97,6 +97,7 @@ class schedule_model extends CI_Model{
                                 `time_stop`         = '{$data['stoptime']}',
                                 `school_groups_id`  = '{$data['group_id']}'
                          ");
+       return $this->db->insert_id();                          
     }
     
     function create_changes_tmp_tbl( $date_start, $date_stop ){ //принимает дату в формате YYYY-MM-DD, возвращает имя временной таблицы
