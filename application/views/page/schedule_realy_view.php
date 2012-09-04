@@ -77,8 +77,8 @@
 
                                                         $block_h        = 29 + ($timesize-2)*18; //дефолт 2 ячейки(29px)
                                                         $block_h        .= 'px';
-                                                        
-                                                 if( isset($lesson_ar['cancel']) && $lesson_ar['cancel'] != 'yes'): // если не установленна отмена
+                                                 if( !isset($lesson_ar['cancel'] ) ) $lesson_ar['cancel'] = 'no'; 
+                                                 if( $lesson_ar['cancel'] != 'yes'): // если не установленна отмена
                                             ?>
                                             
                                             <div class="sch_drag"  timesize="<?=$timesize?>" lesson_id="<?=$lesson_ar['id']?>" date="<?=$week_date[$i]?>" group_id="<?=$group_ar['id']?>">
