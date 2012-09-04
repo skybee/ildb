@@ -46,4 +46,16 @@ class show_modal extends CI_Controller{
         }
     }
     
+    function schedule_cancel(){
+        if( $this->is_less_checked() ){
+            
+            $_POST['teachers_list']  = $this->list->get_teacher_lang();
+            
+            $return_ar['title']     = 'Отмена занятия';
+            $return_ar['content']   = $this->load->view('ajax/modal_window/schedule__view', $_POST, TRUE );
+        
+            echo json_encode($return_ar);
+        }
+    }
+    
 }

@@ -64,19 +64,21 @@ class schedule extends CI_Controller{
     }
     
     function change_teacher(){
-        $_POST['stoptime']  = get_timestop($_POST['starttime'], $_POST['timesize']);
+        $_POST['stoptime']      = get_timestop($_POST['starttime'], $_POST['timesize']);
+        $_POST['teacher_id']    = $_POST['new_teacher_id'];
+        $teacher_info_ar        = $this->teacher->get_teacher_info( $_POST['new_teacher_id'] ); 
+        
         
         if( $_POST['date'] != false ){ //замена преподавателя в реальном рассписании
             if( !$this->schedule_lib->check_teacher_valid_realy($_POST['day'], $_POST['starttime'], $_POST['stoptime'], $_POST['new_teacher_id'], $_POST['new_date']) ){
                 $anser_ar['title']      = 'Ошибка! - Конфликт времени';
-                $anser_ar['content']    = /*'Вероятно преподаватель занят в этот промежуток времени';*/ '<pre>'.print_r($_POST,true).'</pre>';
+                $anser_ar['content']    = 'Вероятно преподаватель занят в этот промежуток времени'; //'<pre>'.print_r($_POST,true).'</pre>';
 
                 echo json_encode( $anser_ar );
                 return;
             }
-            else{
-                $teacher_info_ar        = $this->teacher->get_teacher_info( $_POST['new_teacher_id'] ); 
-            }
+            else
+                $this->schedule->realy_drag_change($_POST);
         }
         else{ //замена преподавателя в стандартном рассписании
             if( !$this->schedule_lib->check_teacher_valid($_POST['day'], $_POST['starttime'], $_POST['stoptime'], $_POST['new_teacher_id']) ){
@@ -86,11 +88,8 @@ class schedule extends CI_Controller{
                 echo json_encode( $anser_ar );
                 return;
             }
-            else{
-                $_POST['teacher_id']    = $_POST['new_teacher_id'];
-                $this->schedule->drag_change($_POST);
-                $teacher_info_ar        = $this->teacher->get_teacher_info( $_POST['new_teacher_id'] ); 
-            }    
+            else
+                $this->schedule->drag_change($_POST); 
         }
         
         $anser_ar['title']      = 'Преподаватель заменен';
