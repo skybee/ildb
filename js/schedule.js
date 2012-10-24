@@ -138,7 +138,7 @@ $(document).ready(function() {
     
     sch_set_empty_dot();
     
-    // == MAIN SHEDULE == //
+    // == MAIN SCHEDULE == //
     $('.sch_drag').draggable({
         helper : 'clone',
         opacity : function(){if( $.browser.msie ) return 1; else return 0.5;},

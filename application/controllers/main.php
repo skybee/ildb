@@ -191,12 +191,13 @@ class main extends CI_Controller{
         $gp_data['classroom_list']  = $this->list->get_classroom();
         $gp_data['teachers_list']   = $this->list->get_teacher_lang();
         $gp_data['lang_list']       = $this->list->get_lang();
+        $gp_data['level_list']      = $this->list->get_level();
         $gp_data['timeselect_opt']  = $this->load->view('component/timeselect_opt_view','',TRUE);
 //        $gp_data['students_list']   = $this->student->get_students();
         $gp_data['students_list']   = $this->student->get_students_for_status();
         
 //        echo '<pre>';
-//        print_r($gp_data['students_list']);
+//        print_r($gp_data);
 //        echo '</pre>';          
         
         $main_data_ar['left_menu']              = $this->load->view('component/left_menu_view', '', TRUE);
@@ -296,8 +297,9 @@ class main extends CI_Controller{
             $sch_data['timetable_list']     = $this->schedule->get_timetable();
         $sch_data['time_ar']            = $this->schedule_lib->get_time_ar();
         
-        foreach( $tmp_group_ar as $key => $val) // дополнение массива групп индивидуальными группами
-            $sch_data['group_list'][$key] = $val;
+        if( count($tmp_group_ar) )
+            foreach( $tmp_group_ar as $key => $val) // дополнение массива групп индивидуальными группами
+                $sch_data['group_list'][$key] = $val;
         
         
         $main_data_ar['title']          = 'Расписание';

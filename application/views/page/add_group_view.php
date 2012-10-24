@@ -59,12 +59,9 @@
                                 <td style="vertical-align: middle;" >Начальный уровень</td>
                                 <td>
                                     <select name="level" class="greyselect" style="width: 55px" >
-                                        <option value="0"></option>
-                                        <option value="1">B1</option>
-                                        <option value="1">B2</option>
-                                        <option value="1">H1</option>
-                                        <option value="1">H2</option>
-                                        <option value="1">H2/1</option>
+                                        <? foreach($level_list as $level_ar): ?>
+                                        <option value="<?=$level_ar['id']?>"><?=$level_ar['name']?></option>
+                                        <? endforeach; ?>
                                     </select>
                                 </td>
                             </tr>

@@ -402,6 +402,7 @@ function width_main_schedule( param ){
 
     if( param == 'get_default' ){
         default_sch_w = $('#right_content').width();
+//        default_sch_w = $('#main').width() - $('#left_menu').width();
         shc_w = default_sch_w;
     }
     else if( param == 'set_default' ){
@@ -409,6 +410,7 @@ function width_main_schedule( param ){
     }
     else{
         shc_w = $('#right_content').width();
+//        shc_w = $('#main').width() - $('#left_menu').width();
     }
     
 //    alert( shc_w + ' - ' + param);

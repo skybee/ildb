@@ -1,28 +1,30 @@
-<?php // if ( ! defined('BASEPATH')) exit('No direct script access allowed');   ?>
+<?php // if ( ! defined('BASEPATH')) exit('No direct script access allowed');    ?>
 
 <div id="right_content">
-    <div id="fix_top_menu">
-    <div id="content_top_block">
-        <div id="group_top_block">
-            <div id="check_all_block">
-                <input type="checkbox" name="check_all" id="check_all" />
-            </div>
-            <!--                            <div class="add_group_top_btn"></div>-->
+    <div id="fix_space">
+        <div id="fix_top_menu">
+            <div id="content_top_block">
+                <div id="group_top_block">
+                    <div id="check_all_block">
+                        <input type="checkbox" name="check_all" id="check_all" />
+                    </div>
+                    <!--                            <div class="add_group_top_btn"></div>-->
 
-            <a href="/add_group/" class="top_left_btn_action" style="left:50px;">Добавить</a>
+                    <a href="/add_group/" class="top_left_btn_action" style="left:50px;">Добавить</a>
 
-            <a href="#" class="top_left_btn top_left_btn_left top_left_btn_del"         style="left:160px;"><div></div></a>
-            <a href="#" class="top_left_btn top_left_btn_right top_left_btn_catalog"   style="left:200px;"><div></div></a>
+                    <a href="#" class="top_left_btn top_left_btn_left top_left_btn_del"         style="left:160px;"><div></div></a>
+                    <a href="#" class="top_left_btn top_left_btn_right top_left_btn_catalog"   style="left:200px;"><div></div></a>
 
-            <a href="#" class="top_left_btn top_left_btn_list" style="left:250px; width: 75px;">
-                <div>Статус</div>
-            </a>
+                    <a href="#" class="top_left_btn top_left_btn_list" style="left:250px; width: 75px;">
+                        <div>Статус</div>
+                    </a>
 
-            <div class="filter_group_top">
-                <input type="text" name="group_filter" id="group_filter" />
+                    <div class="filter_group_top">
+                        <input type="text" name="group_filter" id="group_filter" />
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 
     <table class="group_tbl">

@@ -2,6 +2,8 @@
 
 
 <div id="right_content">
+                    
+    <div id="fix_space">
                     <div id="fix_top_menu">
                         <div id="content_top_block">
                             <div id="group_top_block">
@@ -17,6 +19,12 @@
                                 <a href="#" class="top_left_btn top_left_btn_center top_left_btn_x0"         style="left:340px;"><div></div></a>
                                 <a href="#" class="top_left_btn top_left_btn_center top_left_btn_x1"         style="left:380px;"><div></div></a>
                                 <a href="#" class="top_left_btn top_left_btn_right top_left_btn_x2"         style="left:420px;"><div></div></a>
+                                
+                                <div class="change_schedule_block">
+                                    Отображать<br /> 
+                                    изменения
+                                    <a href="/schedule/realy/" style="background-position: 0px -33px"></a>
+                                </div>
 
                                 <div class="filter_group_top">
                                     <input type="text" name="group_filter" id="group_filter" />
@@ -24,6 +32,7 @@
                             </div>
                         </div>
                     </div>
+    </div>
 
 
                         <div id="main_schadule">
