@@ -43,7 +43,7 @@ class group_model extends CI_Model{
         $query = $this->db->query(" SELECT 
                                         school_groups.*, 
                                         student.id AS 'student_id', student.id AS 'link_id', student.fio_name, student.fio_sname, student.fio_mname,
-                                        lang.short_name AS 'lang'
+                                        lang.short_name AS 'lang', lang.color AS `lang_color`
                                     FROM 
                                         `school_groups`, `student`, `student_school_groups`, `lang`
                                     WHERE
@@ -185,7 +185,7 @@ class group_model extends CI_Model{
     }
     
     function get_timetable( $group_id ){
-        $query = $this->db->query("SELECT * FROM `timetable_set` WHERE `school_groups_id` = '{$group_id}' ");
+        $query = $this->db->query("SELECT * FROM `timetable_set` WHERE `school_groups_id` = '{$group_id}' ORDER BY `day` ");
         
         $result_ar = NULL;
         foreach( $query->result_array() as $row )

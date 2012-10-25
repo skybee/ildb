@@ -16,7 +16,7 @@ function get_schedule_str( $schadule_ar ){ // принимает массив с
     if( $schadule_ar != NULL ){
         foreach ( $schadule_ar as $day => $time ){
             $time = preg_replace("#(\d{2}:\d{2}):\d{2}#i", "$1", $time);
-            $str .= $day_ar[ $day-1 ].'('.$time.')&nbsp;&nbsp;';
+            $str .= $day_ar[ $day-1 ].'<span>('.$time.')</span>&nbsp;&nbsp;';
         }
     }
     

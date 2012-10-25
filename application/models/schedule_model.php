@@ -149,7 +149,7 @@ class schedule_model extends CI_Model{
             if( $day_number == 0 ) $day_number = 7; //воскресение
             
             //<создание массива расписания с заменами>
-            if( $sch_default_ar[$day_number] != NULL ){
+            if( isset($sch_default_ar[$day_number]) && $sch_default_ar[$day_number] != NULL ){
                 foreach($sch_default_ar[$day_number] as $lesson_ar){
                     if( isset($changes_old_date_ar[$day_date]) ) //проверка замены урока в текущую дату
                         if( in_array($lesson_ar['id'], $changes_old_date_ar[$day_date]) )

@@ -151,9 +151,21 @@ class main extends CI_Controller{
         
         $gp_data['groups_list']     = $this->group->get_groups();
         
+        foreach( $gp_data['groups_list'] as $key => $groups_ar ){ //получение дней и времени занятия для группы
+            $date_list = $this->group->get_timetable( $groups_ar['id'] );
+            if( $date_list ){
+                foreach($date_list as $date_ar ){
+                    $tmp_ar[ $date_ar['day'] ] = $date_ar['time_start'];
+                }
+                $gp_data['groups_list'][$key]['time_str'] = get_schedule_str( $tmp_ar );
+                unset($tmp_ar);
+            }
+        }
+//        echo '<pre>'.print_r($gp_data, 1).'</pre>';        
+        
         $main_data_ar['title']          = 'Группы';
         $main_data_ar['left_menu']      = $this->load->view('component/left_menu_view', '', TRUE);
-        $main_data_ar['right_content']  = $this->load->view('page/groups_view', $gp_data, TRUE);
+        $main_data_ar['right_content']  = $this->load->view('page/groups_view', $gp_data, TRUE);        
         
         $this->load->view('main_view', $main_data_ar );
     }
@@ -301,6 +313,7 @@ class main extends CI_Controller{
             foreach( $tmp_group_ar as $key => $val) // дополнение массива групп индивидуальными группами
                 $sch_data['group_list'][$key] = $val;
         
+//        echo '<pre>'.print_r($sch_data, 1).'</pre>';
         
         $main_data_ar['title']          = 'Расписание';
         $main_data_ar['left_menu']      = $this->load->view('component/left_menu_view', '', TRUE);

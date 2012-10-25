@@ -47,7 +47,7 @@
                 <td><?= $group_ar['lang_sname'] ?></td>
                 <td><?= $group_ar['level_name'] ?></td>
                 <td><?= $group_ar['cnt_student'] ?></td>
-                <td>Пн <span>(18:00)</span>. Ср <span>(18:00)</span>. Пт <span>(19:00)</span></td>
+                <td><?= $group_ar['time_str'] ?></td>
                 <td></td>
             </tr>
         <? endforeach; ?>
