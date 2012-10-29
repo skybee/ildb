@@ -6,6 +6,7 @@ class payment_model extends CI_Model{
     function __construct() {
         parent::__construct();
         
+        $this->load->model('schedule_model', 'schedule');
         $this->load->helper('date_convert');
     }
     
@@ -21,6 +22,70 @@ class payment_model extends CI_Model{
            $sql_do      = ' INSERT INTO ';
            $sql_where   = '';
        }    
+//       print_r($_POST);
+       $_POST['cnt_lessons']    = (int) $_POST['cnt_lessons'];
+       $_POST['group_id']       = (int) $_POST['group_id'];
+       $_POST['payment_period'] = (int) $_POST['payment_period'];
+           
+       //== создание временной таблицы занятий ==//
+       $date_start  = date_to_timestamp( $_POST['start_period'] );
+       $date_stop   = date("Y-m-d", strtotime("+ 1 year", strtotime( $date_start ) ) );
+       $tmp_tbl_name = $this->schedule->create_changes_tmp_tbl( $date_start, $date_stop );
+       //== /создание временной таблицы занятий ==//
+       
+       if( $_POST['payment_type'] ==  'cnt_lesson' ){
+           
+           $period_start    = $date_start;
+           $query = $this->db->query("  SELECT `date` FROM `{$tmp_tbl_name}` 
+                                        WHERE 
+                                            `cancel` = 'no' 
+                                            AND 
+                                            `date` >= '{$period_start}' 
+                                            AND
+                                            `school_groups_id` = '{$_POST['group_id']}'
+                                            ORDER BY `date`
+                                            LIMIT {$_POST['cnt_lessons']}
+                                     ");
+           if( $query->num_rows() < 1 ) return FALSE;
+           
+            foreach ( $query->result_array() as $row ){ //создание временного массива с датами занятий
+                $less_date_ar[] = $row['date'];
+            }
+            
+            $start_period   = $less_date_ar[0];
+            $stop_period    = $less_date_ar[ count($less_date_ar)-1 ];
+            $cnt_lesson     = count($less_date_ar);
+       }
+       if( $_POST['payment_type'] ==  'period' ){
+           
+           $period_start    = $date_start;
+           $period_stop     = date("Y-m-d", strtotime("+ {$_POST['payment_period']} month", strtotime( $date_start ) ) );
+           $query = $this->db->query("  SELECT `date` FROM `{$tmp_tbl_name}` 
+                                        WHERE 
+                                            `cancel` = 'no' 
+                                            AND 
+                                            `date` >= '{$period_start}' 
+                                            AND 
+                                            `date` <= '{$period_stop}' 
+                                            AND
+                                            `school_groups_id` = '{$_POST['group_id']}'
+                                            ORDER BY `date`
+                                     ");
+           if( $query->num_rows() < 1 ) return FALSE;
+           
+            foreach ( $query->result_array() as $row ){ //создание временного массива с датами занятий
+                $less_date_ar[] = $row['date'];
+            }
+            
+            $start_period   = $less_date_ar[0];
+            $stop_period    = $less_date_ar[ count($less_date_ar)-1 ];  
+            $cnt_lesson     = count($less_date_ar);
+       }
+       if( $_POST['payment_type'] ==  'other' ){
+            $start_period   = '0000-00-00';
+            $stop_period    = '0000-00-00';
+            $cnt_lesson     = '0';
+       }
             return $this->db->query("  
                                     {$sql_do} `payment`
                                     SET
@@ -30,11 +95,13 @@ class payment_model extends CI_Model{
                                         `summ`              ='{$dataAr['summ']}',
                                         `date`              ='".date_to_timestamp($dataAr['date'])."',
                                         `comment`           ='{$dataAr['comment']}',    
-                                        `cnt_lessons`       ='{$dataAr['cnt_lessons']}',
+                                        `cnt_lessons`       ='{$cnt_lesson}',
                                         `payment_to`        ='{$dataAr['payment_to']}',
-                                        `not_full`          ='{$dataAr['not_full']}'
+                                        `not_full`          ='{$dataAr['not_full']}',
+                                        `period_date_start` ='{$start_period}',
+                                        `period_date_stop`  ='{$stop_period}'
                                      {$sql_where}   
-                                        ");
+                                     ");
     }
     
     function del_payment( $pay_id ){

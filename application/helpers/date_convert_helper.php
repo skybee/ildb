@@ -13,10 +13,13 @@ function date_to_timestamp( $date_str ){ //принимает строку ви�
 }
 
 
-function timestamp_to_date( $timestamp ){
+function timestamp_to_date( $timestamp, $short = false ){
     $date_time_ar   = explode(' ', $timestamp); 
     $date_ar        = explode('-', $date_time_ar[0]);
-    return $date_ar[2].'.'.$date_ar[1].'.'.$date_ar[0];
+    if( $short )
+        return $date_ar[2].'.'.$date_ar[1];
+    else
+        return $date_ar[2].'.'.$date_ar[1].'.'.$date_ar[0];
 }
 
 function date_to_time( $date_str ){

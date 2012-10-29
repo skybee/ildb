@@ -223,7 +223,7 @@ class main extends CI_Controller{
         if( $teacher_id == false ) show_404 ();
         $tch_data['teacher_info']       = $this->teacher->get_teacher_info($teacher_id);
         $tch_data['teacher_lang_list']  = $this->teacher->get_lang_for_teacher($teacher_id);
-        $tch_data['other_groups_list']  = $this->teacher->get_oter_group_for_teacher($teacher_id);
+//        $tch_data['other_groups_list']  = $this->teacher->get_oter_group_for_teacher($teacher_id);
         $tch_data['lang_list']          = $this->list->get_lang();
         
 //        echo '<pre>';

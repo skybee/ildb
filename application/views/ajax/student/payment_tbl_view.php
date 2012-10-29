@@ -12,7 +12,7 @@
             ?>
             <tr>
                 <td<?=$bg?>><b><?= $payment_ar['summ'] ?></b> грн.</td>
-                <td><?= $payment_ar['cnt_lessons'] ?> занятий <br /> <span>xx.xx - xx.xx</span></td>
+                <td><?= $payment_ar['cnt_lessons'] ?> занятий <br /> <span><?= timestamp_to_date( $payment_ar['period_date_start'], true ).' - '.timestamp_to_date($payment_ar['period_date_stop'], true) ?></span></td>
                 <td><?= timestamp_to_date($payment_ar['date']) ?> <br /> <span>суббота</span></td>
                 <td>
                     <a href="/manager/<?= $payment_ar['user_id'] ?>/">

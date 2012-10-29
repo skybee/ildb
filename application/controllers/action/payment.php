@@ -12,6 +12,7 @@ class payment extends CI_Controller{
         $this->load->model('student_model', 'student');
         $this->load->model('group_model', 'group');
         $this->load->model('payment_model', 'payment');
+        $this->load->model('schedule_model', 'schedule');
         $this->load->library('validform_lib');
         $this->load->helper('valid_data');
         

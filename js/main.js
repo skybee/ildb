@@ -11,19 +11,22 @@ function change_payment_type(){ //== переключение типов пла�
     payment_type = $('.payment_type_tbl input:checked').attr('value');
     
     if( payment_type == 'cnt_lesson' ){
-        $('.paymant_add_tbl .peyment_cnt_lesson_tr').css({display:'table-row'});
-        $('.paymant_add_tbl .peyment_period_tr')    .css({display:'none'});
-        $('.paymant_add_tbl .peyment_other_tr')     .css({display:'none'});
+        $('.paymant_add_tbl .peyment_cnt_lesson_tr')    .css({display:'table-row'});
+        $('.paymant_add_tbl .peyment_period_start_tr')  .css({display:'table-row'});
+        $('.paymant_add_tbl .peyment_period_tr')        .css({display:'none'});
+        $('.paymant_add_tbl .peyment_other_tr')         .css({display:'none'});
     }
     if( payment_type == 'period' ){
-        $('.paymant_add_tbl .peyment_cnt_lesson_tr').css({display:'none'});
-        $('.paymant_add_tbl .peyment_period_tr')    .css({display:'table-row'});
-        $('.paymant_add_tbl .peyment_other_tr')     .css({display:'none'});
+        $('.paymant_add_tbl .peyment_cnt_lesson_tr')    .css({display:'none'});
+        $('.paymant_add_tbl .peyment_period_start_tr')  .css({display:'table-row'});
+        $('.paymant_add_tbl .peyment_period_tr')        .css({display:'table-row'});
+        $('.paymant_add_tbl .peyment_other_tr')         .css({display:'none'});
     }
     if( payment_type == 'other' ){
-        $('.paymant_add_tbl .peyment_cnt_lesson_tr').css({display:'none'});
-        $('.paymant_add_tbl .peyment_period_tr')    .css({display:'none'});
-        $('.paymant_add_tbl .peyment_other_tr')     .css({display:'table-row'});
+        $('.paymant_add_tbl .peyment_cnt_lesson_tr')    .css({display:'none'});
+        $('.paymant_add_tbl .peyment_period_start_tr')  .css({display:'none'});
+        $('.paymant_add_tbl .peyment_period_tr')        .css({display:'none'});
+        $('.paymant_add_tbl .peyment_other_tr')         .css({display:'table-row'});
     }
 }
 

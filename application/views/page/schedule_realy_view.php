@@ -96,8 +96,12 @@
                                                             <a href="/group_cart/<?=$group_ar['link_id']?>/"><?= $group_ar['name'] ?></a>
                                                         <? endif; ?>    
                                                     </div>
-                                                    <div class="sch_drag_teachername" teacher_id="<?=$teacher_ar['id']?>"><?= $teacher_ar['fio_name'].' '.$teacher_ar['fio_sname'] ?></div>
-                                                    <div class="sch_drag_langname"><span><?= $group_ar['lang'] ?></span> 9</div>
+                                                    <div class="sch_drag_teachername" teacher_id="<?=$teacher_ar['id']?>">
+                                                        <span style="color:<?=$group_ar['lang_color']?>"><?= $group_ar['lang'] ?></span>
+                                                        &nbsp;
+                                                        <?= $teacher_ar['fio_name'].' '.$teacher_ar['fio_sname'] ?>
+                                                    </div>
+                                                    <div class="sch_drag_langname"></div>
                                                 </div>
                                             </div>
                                             

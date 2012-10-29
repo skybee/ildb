@@ -18,7 +18,7 @@
         <div class="student_cart_left_block">
             <ul id="tab_links_list">
                 <li><a href="#st_tbs1">Информация</a></li>
-                <li><a href="#st_tbs2">Группы</a></li>
+                <!--<li><a href="#st_tbs2">Группы</a></li>-->
             </ul>
         </div>
 
@@ -119,8 +119,15 @@
                             </tr>
                         </table>
 
-                        <div class="confirm_block">
+<!--                        <div class="confirm_block">
                             <a href="#" onclick="$('#page_tabs').tabs('select',1)" class="confirm_button" style="width: 76px;" >Далее</a>
+                            <a href="/teachers/">Отмена</a>
+                        </div>-->
+
+                        <div class="confirm_block">
+                            <a href="javascript:void(0)" class="confirm_button" 
+                               onclick="send_form('#add_teacher_form', {title:'Выполняется добавление преподавателя', content:'loader'} )">
+                                Добавить преподавателя</a>
                             <a href="/teachers/">Отмена</a>
                         </div>
 
@@ -130,7 +137,7 @@
 
 
                 <!-- TAB_2 -->    
-                <div id="st_tbs2" class="student_tabs_block">
+<!--                <div id="st_tbs2" class="student_tabs_block">
                     <div class="studen_cart_info">
                         <h1>
                             Добавьте преподователя в группу
@@ -139,9 +146,9 @@
                         <div style="margin-top: 15px;">
                             <select class="greyselect" name="group" style="width: 320px;">
                                 <option value="0" ></option>
-                                <? foreach($group_list as $group_ar): ?>
-                                    <option value="<?=$group_ar['id']?>" ><?=$group_ar['name']." ({$group_ar['lang']})"?></option>
-                                <? endforeach; ?>
+                                <? #foreach($group_list as $group_ar): ?>
+                                    <option value="<?#=$group_ar['id']?>" ><?#=$group_ar['name']." ({$group_ar['lang']})"?></option>
+                                <? #endforeach; ?>
                             </select>
                         </div>
 
@@ -152,7 +159,7 @@
                             <a href="/teachers/">Отмена</a>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <!-- /TAB_2 -->
 
             </form>

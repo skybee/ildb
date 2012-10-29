@@ -128,6 +128,7 @@ class teacher_model extends CI_Model{
                                         AND
                                         lang.id = school_groups.lang_id
                                   ");
+        $result_ar = NULL;                                                            
         foreach( $query->result_array() as $row ){
             $result_ar[] = $row;
         }

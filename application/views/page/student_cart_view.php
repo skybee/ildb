@@ -49,7 +49,9 @@
                 <div class="last_payment_block">
                     <div class="left_info_block_title" onclick="$('#page_tabs').tabs('select',1)">Последняя оплата</div>
                     <b style="font-weight: bold" ><?= $last_payment['summ'] ?></b> грн. <br />
-                    <?= $last_payment['cnt_lessons'] ?> занятий ( <span>20.04 - 25.05</span> )<br />
+                    <?= $last_payment['cnt_lessons'] ?> занятий 
+                    ( <span><?= timestamp_to_date( $last_payment['period_date_start'], true ).' - '.timestamp_to_date($last_payment['period_date_stop'], true) ?></span> )
+                    <br />
                     Дата оплаты: <?= timestamp_to_date($last_payment['date']) ?>
                 </div>
             <? endif; ?>
@@ -213,8 +215,8 @@ endif;
                                                     ?>
                                                     <tr>
                                                         <td<?= $bg ?>><b><?= $payment_ar['summ'] ?></b> грн.</td>
-                                                        <td><?= $payment_ar['cnt_lessons'] ?> занятий <br /> <span>xx.xx - xx.xx</span></td>
-                                                        <td><?= timestamp_to_date($payment_ar['date']) ?> <br /> <span>суббота</span></td>
+                                                        <td><?= $payment_ar['cnt_lessons'] ?> занятий <br /> <span><?= timestamp_to_date( $payment_ar['period_date_start'], true ).' - '.timestamp_to_date($payment_ar['period_date_stop'], true) ?></span></td>
+                                                        <td><?= timestamp_to_date($payment_ar['date']) ?> <br /> <span></span></td>
                                                         <td>
                                                             <a href="/manager/<?= $payment_ar['user_id'] ?>/">
                                                     <?= $payment_ar['user_name'] ?>
@@ -329,11 +331,11 @@ endif;
                                         </table>
                                     </td>
                                 </tr>
-                                <tr class="peyment_period_tr">
+                                <tr class="peyment_period_start_tr">
                                     <td>Начало периода:</td>
                                     <td>
                                         <div class="payment_add_date_block">
-                                            <input type="text" class="greyinput date_input" name="date" value="<?= date("d.m.Y") ?>" style="width: 90px;" />
+                                            <input type="text" class="greyinput date_input" name="start_period" value="<?= date("d.m.Y") ?>" style="width: 90px;" />
                                         </div>
                                     </td>
                                 </tr>

@@ -28,8 +28,8 @@ class teacher extends CI_Controller{
             $teacher_id = $this->teacher->add_teacher();
             if( $teacher_id ){
                 $this->teacher->add_lang_to_teacher( $teacher_id, $_POST['lang'] );
-                if( $_POST['group'] == true )
-                    $this->teacher->add_teacher_for_group( $teacher_id, $_POST['group']);
+//                if( $_POST['group'] == true )
+//                    $this->teacher->add_teacher_for_group( $teacher_id, $_POST['group']);
             
                 $anser_ar['title']      = 'Преподаватель добавлен в базу';
                 $anser_ar['content']    = '';

@@ -54,6 +54,7 @@ $active_record = TRUE;
 //$db['default']['database'] = 'ildb';
 
 
+//$db['default']['hostname'] = 'localhost';
 $db['default']['hostname'] = 'db.ilingua.com.ua';
 $db['default']['username'] = 'wwwiling_ildb';
 $db['default']['password'] = 'skybeeqwerty12345';
