@@ -69,6 +69,28 @@ class teacher extends CI_Controller{
     }
     
     function del_teacher(){
-        print_r($_POST);
+//        print_r($_POST);
+        
+        $i=0;
+        $id_str = '';
+        foreach( $_POST['id_ar'] as $id ){
+            if($i)
+                $id_str .= ', ';
+            $id_str .= $id;
+            $i++;
+        }
+        
+        if( $this->db->query("DELETE FROM `users` WHERE `id` IN ({$id_str}) ") ){
+            $this->db->query("DELETE FROM `teacher_lang` WHERE `user_id` IN ({$id_str}) ");
+            
+            $anser_ar['title']      = 'Выбранные преподаватели удалены';
+            $anser_ar['content']    = '';
+        }
+        else{
+            $anser_ar['title']      = 'Ошибка удаления';
+            $anser_ar['content']    = '';
+        }
+        
+        echo json_encode( $anser_ar );
     }
 }

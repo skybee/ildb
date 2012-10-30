@@ -12,7 +12,7 @@
 
                     <a href="/add_group/" class="top_left_btn_action" style="left:50px;">Добавить</a>
 
-                    <a href="#" class="top_left_btn top_left_btn_left top_left_btn_del"         style="left:160px;"><div></div></a>
+                    <a href="javascript:void(0)" class="top_left_btn top_left_btn_left top_left_btn_del" style="left:160px;" onclick="del_stud_teach('delete', 'groups')"><div></div></a>
                     <a href="#" class="top_left_btn top_left_btn_right top_left_btn_catalog"   style="left:200px;"><div></div></a>
 
                     <a href="#" class="top_left_btn top_left_btn_list" style="left:250px; width: 75px;">
@@ -41,7 +41,9 @@
 
         <? foreach ($groups_list as $group_ar): ?>
             <tr>
-                <td><input type="checkbox" name="tmp[]" /></td>
+                <td>
+                    <input type="checkbox" name="tmp[]" class="checkline"  group_id="<?= $group_ar['id'] ?>" />
+                </td>
                 <td class="group_tbl_star"></td>
                 <td><a href="/group_cart/<?= $group_ar['id'] ?>/"><?= $group_ar['name'] ?></a></td>
                 <td><?= $group_ar['lang_sname'] ?></td>

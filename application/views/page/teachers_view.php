@@ -10,19 +10,11 @@
             <a href="/add_teacher/" class="top_left_btn_action" style="left:50px;">Добавить</a>
 
             <a href="#" class="top_left_btn top_left_btn_left top_left_btn_del"        style="left:160px;"
-               onclick="send_post(  {   id: '1',
-                   action: 'del'
-               }, 
-               '/action/teacher/del_teacher/', 
-               {title:'Выполняется удаление студента', content:'loader'} )">
+               onclick="del_stud_teach('delete', 'teachers')">
                 <div></div>
             </a>
             <a href="#" class="top_left_btn top_left_btn_right top_left_btn_catalog"   style="left:200px;"
-               onclick="send_post(  {   id: '1',
-               action: 'del'
-           }, 
-           '/action/teacher/del_teacher/', 
-           {title:'Выполняется удаление студента', content:'loader'} )">
+               onclick="del_stud_teach('arhive', 'teachers')">
                 <div></div>
             </a>
 
@@ -62,9 +54,11 @@
                 <tr>
                     <td>
                         <input type="checkbox" name="tmp[]" class="checkline" 
-                               copymail= "<?= $teacher_ar['email'] ?>" 
-                               copyphone="<?= $teacher_ar['phone'] ?>" 
-                               copyname= "<?= $teacher_ar['fio'] ?>"/>
+                               copymail=    "<?= $teacher_ar['email'] ?>" 
+                               copyphone=   "<?= $teacher_ar['phone'] ?>" 
+                               copyname=    "<?= $teacher_ar['fio'] ?>"
+                               teacher_id=  "<?= $teacher_ar['id'] ?>"/>
+                               
                     </td>
                     <td></td>
                     <td><a href="/teacher_cart/<?= $teacher_ar['id'] ?>/"><?= $teacher_ar['fio'] ?></a></td>

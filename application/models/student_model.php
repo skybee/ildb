@@ -256,6 +256,7 @@ class student_model extends CI_Model{
                                         `id` NOT IN (SELECT `student_id` FROM `student_school_groups`) 
                                         AND
                                         `delete` = 'live' "); 
+       $return_ar = NULL;
        foreach ( $query->result_array() as $row )
             $return_ar[] = $row;
         

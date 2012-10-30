@@ -31,6 +31,8 @@ class group_model extends CI_Model{
                                         school_groups.level_id  = level.id
                                         AND
                                         school_groups.group_format_id != 1
+                                        AND
+                                        school_groups.status != 404
                                     GROUP BY  school_groups.id
                                   ");
         foreach ( $query->result_array() as $row )
@@ -86,6 +88,8 @@ class group_model extends CI_Model{
                                         school_groups.lang_id   = lang.id
                                         AND
                                         school_groups.level_id  = level.id
+                                        AND
+                                        school_groups.status != 404
                                     ");
         $return_ar = null;                                
         foreach ( $query->result_array() as $row )

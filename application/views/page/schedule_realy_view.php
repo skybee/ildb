@@ -77,7 +77,10 @@
                                                     
                                                         $lesson_ar      = $timetable_list[$classroom_ar['id']][$i][$time]; 
                                                         $group_ar       = $group_list[$lesson_ar['school_groups_id']];
-                                                        $teacher_ar     = $teacher_list[$lesson_ar['user_id']];
+                                                        if( isset($teacher_list[$lesson_ar['user_id']]) )
+                                                            $teacher_ar = $teacher_list[$lesson_ar['user_id']];
+                                                        else
+                                                            $teacher_ar = '--';
                                                         $timesize       = get_timesize($lesson_ar['time_start'], $lesson_ar['time_stop']);
 
                                                         $block_h        = 29 + ($timesize-2)*18; //дефолт 2 ячейки(29px)

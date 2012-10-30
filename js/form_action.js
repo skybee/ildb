@@ -118,27 +118,51 @@ function check_important( st_id ){ //включение/выключение з�
 
 function del_stud_teach( actionStr, whoDel  ){
     
+    delData = {
+        students: {
+            name1:      'студентов',
+            actionUrl:  '/action/student/del_student/',
+            idName:     'student_id'
+        },
+        teachers: {
+            name1:      'преподавателей',
+            actionUrl:  '/action/teacher/del_teacher/',
+            idName:     'teacher_id'
+        },
+        groups: {
+            name1:      'групп',
+            actionUrl:  '/action/group/del_group/',
+            idName:     'group_id'
+        }
+    }
+    
+    if( whoDel == 'students' )
+        stData = delData.students;
+    else if( whoDel == 'teachers' )
+        stData = delData.teachers;
+    else if( whoDel == 'groups' )
+        stData = delData.groups;
     
     if( actionStr == 'arhive' )
-        modalStr = 'Выполняется перемещение студентов в архив'
+        modalStr = 'Выполняется перемещение '+stData.name1+' в архив';
     else if( actionStr == 'delete' )
-        modalStr = 'Выполняется удаление студентов'
+        modalStr = 'Выполняется удаление '+stData.name1;
     else
         return false;
     
     data_obj = $('.checkline:checked');
     
     if( data_obj.length < 1){
-        show_modal( 'Ошибка выполнения', 'Нет выбранных студентов');
+        show_modal( 'Ошибка выполнения', 'Нет выбранных '+stData.name1 );
         return false;
     }
     
     idAr = [];
     for(i=0; i<data_obj.length; i++){
-        idAr[i] = $(data_obj[i]).attr('student_id');
+        idAr[i] = $(data_obj[i]).attr( stData.idName );
     }
     
-    send_post({'id_ar':idAr, 'action':actionStr}, '/action/student/del_student/', {title:modalStr, content:'loader'} )
+    send_post({'id_ar':idAr, 'action':actionStr}, stData.actionUrl, {title:modalStr, content:'loader'} )
     
     $('.checkline:checked').closest('tr').css({'display':'none'});
 }

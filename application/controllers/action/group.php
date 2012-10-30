@@ -138,4 +138,30 @@ class group extends CI_Controller{
         echo json_encode( $anser_ar );
     }
     
+    function del_group(){
+        
+        $i=0;
+        $id_str = '';
+        foreach( $_POST['id_ar'] as $id ){
+            if($i)
+                $id_str .= ', ';
+            $id_str .= $id;
+            $i++;
+        }
+        
+        if( $this->db->query("UPDATE `school_groups` SET `status`='404' WHERE `id` IN ({$id_str}) ") ){
+            $this->db->query("DELETE FROM `timetable_set` WHERE `school_groups_id` IN ({$id_str}) ");
+            $this->db->query("DELETE FROM `timetable_changes` WHERE `school_groups_id` IN ({$id_str}) ");
+            
+            $anser_ar['title']      = 'Выбранные группы удалены';
+            $anser_ar['content']    = '';
+        }
+        else{
+            $anser_ar['title']      = 'Ошибка удаления';
+            $anser_ar['content']    = '';
+        }
+        
+        echo json_encode( $anser_ar );
+    }
+    
 }
