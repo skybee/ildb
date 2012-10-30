@@ -12,11 +12,11 @@
                     <a href="/add_student/" class="top_left_btn_action" style="left:50px;">Добавить</a>
 
                     <a href="javascript:void(0)" class="top_left_btn top_left_btn_left top_left_btn_del"        style="left:160px;"
-                       onclick="del_students('delete')">
+                       onclick="del_stud_teach('delete', 'students')">
                         <div></div>
                     </a>
                     <a href="javascript:void(0)" class="top_left_btn top_left_btn_right top_left_btn_catalog"   style="left:200px;"
-                       onclick="del_students('arhive')">
+                       onclick="del_stud_teach('arhive', 'students')">
                         <div></div>
                     </a>
 

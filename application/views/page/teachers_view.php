@@ -13,7 +13,7 @@
                onclick="send_post(  {   id: '1',
                    action: 'del'
                }, 
-               '/action/student/del_student/', 
+               '/action/teacher/del_teacher/', 
                {title:'Выполняется удаление студента', content:'loader'} )">
                 <div></div>
             </a>
@@ -21,7 +21,7 @@
                onclick="send_post(  {   id: '1',
                action: 'del'
            }, 
-           '/action/student/del_student/', 
+           '/action/teacher/del_teacher/', 
            {title:'Выполняется удаление студента', content:'loader'} )">
                 <div></div>
             </a>

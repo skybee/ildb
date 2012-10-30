@@ -116,7 +116,9 @@ function check_important( st_id ){ //включение/выключение з�
 }
 
 
-function del_students( actionStr ){
+function del_stud_teach( actionStr, whoDel  ){
+    
+    
     if( actionStr == 'arhive' )
         modalStr = 'Выполняется перемещение студентов в архив'
     else if( actionStr == 'delete' )

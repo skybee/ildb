@@ -67,4 +67,8 @@ class teacher extends CI_Controller{
         
         echo json_encode( $anser_ar );
     }
+    
+    function del_teacher(){
+        print_r($_POST);
+    }
 }
