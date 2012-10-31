@@ -14,7 +14,7 @@
             </a>-->
 
             <!--                            <div class="student_copy_top_btn"></div>-->
-            <div class="student_del_top_btn" onclick="window.location.href='/students/1/'"></div>
+            <div class="student_del_top_btn" onclick="window.location.href='/students/'"></div>
         </div>
     </div>
 

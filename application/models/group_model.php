@@ -126,16 +126,15 @@ class group_model extends CI_Model{
     }
     
     function get_teachers_for_group( $group_id){
-        $query = $this->db->query(" SELECT 
+        $query = $this->db->query(" SELECT DISTINCT 
                                         users.id, users.fio 
                                     FROM
-                                        `users`, `school_groups`, `school_groups_users`
+                                        `users`, `timetable_set`
                                     WHERE 
-                                        school_groups_users.users_id = users.id
+                                        users.id = timetable_set.user_id
                                         AND
-                                        school_groups_users.school_groups_id = school_groups.id
-                                        AND
-                                        school_groups.id = {$group_id}");
+                                        timetable_set.school_groups_id = {$group_id}
+                                 ");
         $return_ar = null;                                
         foreach ( $query->result_array() as $row )
             $return_ar[] = $row;
@@ -196,6 +195,19 @@ class group_model extends CI_Model{
             $result_ar[ $row['day'] ] = $row;
         
         return $result_ar;
+    }
+    
+    function upd_group_info( $data ){
+       return  $this->db->query("   UPDATE `school_groups` 
+                                    SET
+                                        `name`      = '{$data['group_name']}',
+                                        `lang_id`   = '{$data['lang_id']}',
+                                        `level_id`  = '{$data['level_id']}',
+                                        `start_lesson_date` = '{$data['start_lesson_date']}',
+                                        `stop_lesson_date`  = '{$data['stop_lesson_date']}'
+                                    WHERE 
+                                        `id` = '{$data['id']}'     
+                                ");
     }
     
     function add_group( $post ){

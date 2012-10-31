@@ -40,6 +40,7 @@ function send_post(dataObj, url, modalTxtObj ){
 
 
 function ajax_show_modal( url, dataObj ){
+    show_modal('Подождите...', 'loader');
    $.post(
             url, 
             dataObj,

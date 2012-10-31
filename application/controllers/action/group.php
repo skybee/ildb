@@ -10,6 +10,7 @@ class group extends CI_Controller{
         $this->load->model('student_model', 'student', TRUE);
         $this->load->model('group_model', 'group', TRUE);
         $this->load->model('schedule_model', 'schedule', TRUE);
+        $this->load->model('payment_model', 'payment', TRUE);
         $this->load->library('validform_lib');
         $this->load->library('schedule_lib');
         $this->load->helper('valid_data');
@@ -20,29 +21,47 @@ class group extends CI_Controller{
     
     function index(){ show_404(); }
     
-
-    function upd_group(){
-        sleep(2);
+    function add_students(){
         
-        $anser_ar['title']      = 'Ошибка обновления';
-        $anser_ar['content']    = 'Не удалось выполнить запрос к БД';
+        $st_id_ar = $_POST['students_id_ar'];
+        $group_id = $_POST['group_id'];
+        
+        if( isset($group_id) && count($st_id_ar) >= 1 ){
+            foreach( $st_id_ar as $st_id ){
+                $this->student->add_to_group( $group_id, $st_id, '0000-00-00' );
+            }
+            $anser_ar['title']      = 'Студенты добавленны в группу';
+            $anser_ar['content']    = '';
+        }
+        else{
+            $anser_ar['title']      = 'Ошибка добавления студентов';
+            $anser_ar['content']    = 'возможно не указана группа или не выбраны студенты';
+        }
         
         echo json_encode( $anser_ar );
     }
     
-    function add_students(){
-        sleep(2);
+    function upd_group(){
         
-        $anser_ar['title']      = 'Ошибка добавления студентов';
-        $anser_ar['content']    = 'Не удалось выполнить запрос к БД';
+//        print_r($_POST);
+        
+        $_POST['start_lesson_date'] = date_to_timestamp( $_POST['start_lesson'] );
+        $_POST['stop_lesson_date']  = date_to_timestamp( $_POST['stop_lesson'] );
+        
+        if( $this->group->upd_group_info($_POST) ){
+            $anser_ar['title']      = 'Информация о группе обновлена';
+            $anser_ar['content']    = '';
+        }
+        else{
+            $anser_ar['title']      = 'Ошибка обновления';
+            $anser_ar['content']    = '';
+        }
         
         echo json_encode( $anser_ar );
     }
     
     function add_group(){
-//        echo '<pre>';
-//        print_r($_POST);
-//        echo '</pre>';
+
         if( $this->validform_lib->add_group( $_POST ) ){
             $anser_ar['title']      = 'Ошибка добавления';
             $anser_ar['content']    = 'Следующие поля были заполнены не правильно:<br />';
@@ -110,6 +129,8 @@ class group extends CI_Controller{
             foreach( $_POST['day'] as $day => $val ){
                 $stop_lesson = summ_time( $_POST['start_lesson'][$day], '+', $_POST['lesson_long'][$day] );
                 //== проверка занятости кабинета ==//
+                
+                if( !isset($_POST['day_id'][$day]) ) $_POST['day_id'][$day] = false;
                 if( !$this->schedule_lib->check_lesson_valid($day, $_POST['class'][$day], $_POST['start_lesson'][$day], $stop_lesson, $_POST['day_id'][$day]) ){
                     $anser_ar['title']      = 'Ошибка обновления';
                     $anser_ar['content']    = 'Одно или несколько занятий пересекаются с уже существующими.<br /> Проверьте аудиторию и время занятий';
@@ -131,6 +152,8 @@ class group extends CI_Controller{
                 $anser_ar['content']    = '';
             }
             else{
+                $this->payment->update_group_payment( $_POST['group_id'], date("Y-m-d")  );
+                $this->payment->update_group_payment( $_POST['group_id'], date("Y-m-d", strtotime("+ 1 week", strtotime( date("Y-m-d") ) ) ) );
                 $anser_ar['title']      = 'Расписание обновленно';
                 $anser_ar['content']    = '';
             }

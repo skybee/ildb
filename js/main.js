@@ -399,6 +399,18 @@ set_jq_action();
 });
 
 
+// <добавление студентов в группу>
+    function add_students_to_group(){
+        data_obj = $('.checkline:checked');
+        idAr = new Array;
+        for(i=0; i<data_obj.length; i++){
+            idAr[i] = $(data_obj[i]).attr('student_id');
+        }
+//        console.log(idAr);
+        ajax_show_modal('/ajax/show_modal/add_student_to_group/', {id_ar: idAr} );
+    }
+// </добавление студентов в группу>
+
 //== установка ширины таблицы ==//
 var default_sch_w;
 function width_main_schedule( param ){

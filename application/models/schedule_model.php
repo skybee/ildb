@@ -62,7 +62,7 @@ class schedule_model extends CI_Model{
         
         $query = $this->db->query(" SELECT * FROM `timetable_set` $where_sql ");
         foreach( $query->result_array() as $row ){
-            $result_ar[$row['classroom_id']][$row['day']][$row['time_start']] = $row;
+            $result_ar[$row['classroom_id']] [$row['day']] [$row['time_start']] = $row;
         }
         return $result_ar;
     }

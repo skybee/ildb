@@ -47,12 +47,14 @@ class list_model extends CI_Model{
                                         users.fio, users.fio_name, users.fio_sname, users.fio_mname, users.id
                                         -- , lang.short_name AS `lang` 
                                     FROM 
-                                        `users`, `users_groups`
+                                        `users`, `users_groups`, `groups`
                                         -- , `groups` ,`lang`, `teacher_lang`
                                     WHERE 
-                                        users.id = users_groups.user_id 
-                                        AND 
-                                        users_groups.group_id = 3
+                                        groups.name             = 'teachers'
+                                        AND
+                                        users_groups.group_id   = groups.id
+                                        AND
+                                        users_groups.user_id    = users.id
                                         -- AND
                                         -- users.id = teacher_lang.user_id
                                         -- AND

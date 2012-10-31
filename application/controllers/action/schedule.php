@@ -7,6 +7,7 @@ class schedule extends CI_Controller{
         parent::__construct();
         $this->load->model('schedule_model',    'schedule', TRUE);
         $this->load->model('teacher_model',     'teacher',  TRUE);
+        $this->load->model('payment_model',     'payment',  TRUE);
         $this->load->library('schedule_lib');
         $this->load->helper('valid_data');
         $this->load->helper('date_convert');
@@ -17,11 +18,14 @@ class schedule extends CI_Controller{
     function drag_change(){ //изменение занятия для постоянного расписания
         $_POST['stoptime'] = get_timestop($_POST['starttime'], $_POST['timesize']);
         $this->schedule->drag_change($_POST);
+        $this->payment->update_group_payment( $_POST['group_id'], date("Y-m-d")  );
+        $this->payment->update_group_payment( $_POST['group_id'], date("Y-m-d", strtotime("+ 1 week", strtotime( date("Y-m-d") ) ) ) );
     }
     
     function realy_drag_change(){
         $_POST['stoptime'] = get_timestop($_POST['starttime'], $_POST['timesize']);
         $this->schedule->realy_drag_change($_POST);
+        $this->payment->update_group_payment( $_POST['group_id'], $_POST['date']  );
 //        print_r($_POST);
     }
     
@@ -105,6 +109,7 @@ class schedule extends CI_Controller{
         $_POST['stoptime'] = get_timestop($_POST['starttime'], $_POST['timesize']);
         $change_id = $this->schedule->realy_drag_change($_POST);
         $this->db->query("UPDATE `timetable_changes` SET `cancel`='yes' WHERE `id`='{$change_id}' ");
+        $this->payment->update_group_payment( $_POST['group_id'], $_POST['date']  );
         
         $anser_ar['title']      = 'Занятие отменено';
         $anser_ar['content']    = 'Не забудьте предупредить студентов и преподавателя об изменение графика.';

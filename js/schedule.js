@@ -73,6 +73,8 @@ function set_drag_data( drag ){
 //    $('.visual_drag').css({'box-shadow':'none'});
     //<подсветка и добавление класса к драг блоку>
     
+//    alert($('.sch_drag',drag).attr('group_id'));
+    
     starttime       = $(drag).attr('starttime');
     timesize        = $('.sch_drag',drag).attr('timesize');
     lesson_id       = $('.sch_drag',drag).attr('lesson_id');
@@ -83,7 +85,7 @@ function set_drag_data( drag ){
     day             = $(drag).attr('day_dot');
     classroom       = $(drag).attr('classroom');
     
-//    alert(starttime);
+    
     
     if( day_date != undefined ){
         action_url = '/action/schedule/realy_drag_change/';

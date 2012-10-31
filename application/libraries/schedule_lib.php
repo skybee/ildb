@@ -71,6 +71,7 @@ class schedule_lib{
                                                 (`time_stop` > '{$starttime}' AND `time_stop` <= '{$stoptime}')
                                             )
                                             {$less_where}");
+        
         $row = $query->row();
         
         if( $row->count > 0)

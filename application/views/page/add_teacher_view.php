@@ -8,7 +8,7 @@
 <div id="right_content">
     <div id="content_top_block">
         <div id="group_top_block">
-            <div class="student_del_top_btn" onclick="window.location.href='/students/1/'"></div>
+            <div class="student_del_top_btn" onclick="window.location.href='/teachers/'"></div>
         </div>
     </div>
 

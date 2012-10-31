@@ -15,7 +15,7 @@
                             </a>-->
 
                 <!--                            <div class="student_copy_top_btn"></div>-->
-                <div class="student_del_top_btn" onclick="window.location.href='/students/1/'"></div>
+                <div class="student_del_top_btn" onclick="window.location.href='/groups/'"></div>
             </div>
         </div>
 
@@ -87,7 +87,7 @@
                                 <td><input type="text" name="start_group_lesson" class="greyinput date_input_all" style="width: 70px;" /></td>
                             </tr>
 
-                            <tr>
+<!--                            <tr>
                                 <td colspan="2" class="info_space"></td>
                             </tr>
 
@@ -100,18 +100,18 @@
                                             <td>
                                                 <select name="group_teacher" id="group_teacher" class="greyselect" style="width: 190px" onchange="add_teacher_to_group()" >
                                                     <option value="0"></option>
-                                                    <? foreach ($teachers_list as $teacher_ar): ?>
-                                                        <option value="<?= $teacher_ar['id'] ?>">   
-                                                            <?= $teacher_ar['fio_sname'] . " " . $teacher_ar['fio_name'] ?>
+                                                    <?# foreach ($teachers_list as $teacher_ar): ?>
+                                                        <option value="<?#= $teacher_ar['id'] ?>">   
+                                                            <?#= $teacher_ar['fio_sname'] . " " . $teacher_ar['fio_name'] ?>
                                                         </option>
-                                                    <? endforeach; ?>
+                                                    <?# endforeach; ?>
                                                 </select>
                                             </td>
-                                            <td style="vertical-align: top; line-height: 20px"> <!--или или &nbsp;&nbsp; <a href="#">добавьте нового преподавателя</a>--></td>
+                                            <td style="vertical-align: top; line-height: 20px"> или или &nbsp;&nbsp; <a href="#">добавьте нового преподавателя</a></td>
                                         </tr>
                                     </table>
                                 </td>
-                            </tr>
+                            </tr>-->
                             <tr>
                                 <td colspan="2" class="info_space"></td>
                             </tr>
@@ -207,7 +207,11 @@
                                     </td>
                                     <td>
                                         <select name="teacher[<?=$i?>]" class="greyselect" style="width: 170px">
-                                            <option value="0"></option>
+                                            <? foreach ($teachers_list as $teacher_ar): ?>
+                                                        <option value="<?= $teacher_ar['id'] ?>">   
+                                                            <?= $teacher_ar['fio_sname'] . " " . $teacher_ar['fio_name'] ?>
+                                                        </option>
+                                            <? endforeach; ?>
                                         </select>
                                     </td>
                                 </tr>

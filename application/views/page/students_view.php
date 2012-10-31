@@ -24,7 +24,7 @@
                         <div>Функции</div>
                         <div class="slide_list_block" style="width: 170px; top: 27px; right:0; height: 105px !important;">
                             <ul class="student_copy_ul">
-                                <li>Добавить в группу</li>
+                                <li onclick="add_students_to_group()">Добавить в группу</li>
                                 <li onclick="alert('not line')">Показать должников</li>
                                 <li copyname="copyphone" class="copy_info">Скопировать телефоны</li>
                                 <li copyname="copymail" class="copy_info">Скопировать e-mail</li>

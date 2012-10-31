@@ -21,7 +21,7 @@
             <ul id="tab_links_list">
                 <li><a href="#st_tbs1">Информация</a></li>
                 <li><a href="#st_tbs2">Студенты</a></li>
-                <li><a href="#st_tbs3">Тариф</a></li>
+<!--                <li><a href="#st_tbs3">Тариф</a></li>-->
                 <li><a href="#st_tbs4">График работы</a></li>
                 <li><a href="#st_tbs5">Выходные дни <span>(2)</span></a></li>
                 <li><a href="#st_tbs8" style="display:none;">Редактирование</a></li>
@@ -38,7 +38,6 @@
                     <h1>
                         Информация о группе 
                         <span style=" display: inline-block; width: 20px;"></span>
-                        <a href="#">Архив</a>
                     </h1>
 
                     <table class="student_cart_info_tbl group_cart_info_tbl">
@@ -62,46 +61,46 @@
                             <td>Учашихся</td>
                             <td><?= $group_info_ar['cnt_student'] ?></td>
                         </tr>
-                        <tr>
+<!--                        <tr>
                             <td>Формат</td>
-                            <td><?= $group_info_ar['group_format'] ?></td>
-                        </tr>
+                            <td><?#= $group_info_ar['group_format'] ?></td>
+                        </tr>-->
                         <tr>
                             <td colspan="2" class="info_space"></td>
                         </tr>
                         <tr>
                             <td>Начало занятий</td>
-                            <td>05.06.11</td>
+                            <td><?=timestamp_to_date( $group_info_ar['start_lesson_date'] )?></td>
                         </tr>
                         <tr>
                             <td>Окончание занятий</td>
-                            <td>07.06.12</td>
+                            <td><?=timestamp_to_date( $group_info_ar['stop_lesson_date'] )?></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="info_space"></td>
                         </tr>
-                        <tr>
+<!--                        <tr>
                             <td>Аудитория</td>
                             <td style="padding-top: 0">
                                 <table class="student_cart_info_tbl width_auto" style="margin-top: 0">
                                     <?
-                                    if ($group_classroom_list != NULL):
-                                    foreach ($group_classroom_list as $group_classroom_ar):
+                                    #if ($group_classroom_list != NULL):
+                                    #foreach ($group_classroom_list as $group_classroom_ar):
                                     ?>
                                     <tr>
-                                        <td style="width: 210px" ><?= $group_classroom_ar['name'] ?></td>
+                                        <td style="width: 210px" ><?#= $group_classroom_ar['name'] ?></td>
                                     </tr>
                                     <?
-                                    endforeach;
-                                    else:
+                                    #endforeach;
+                                    #else:
                                     ?>
                                     <tr>
                                         <td style="width: 210px" >Группа не связанна ни с одной аудиторией</td>
                                     </tr>
-                                    <? endif; ?>
+                                    <? #endif; ?>
                                 </table>
                             </td>
-                        </tr>
+                        </tr>-->
                         <tr>
                             <td>Преподаватель</td>
                             <td style="padding-top: 0">
@@ -118,7 +117,7 @@
                                     else:
                                     ?>
                                     <tr>
-                                        <td style="width: 210px" >Для группы не назначен препадаватель</td>
+                                        <td style="width: 210px" >С группой не связан ни один из преподавателей</td>
                                     </tr>
                                     <? endif; ?>
                                 </table>
@@ -128,7 +127,7 @@
                     </table>
 
                     <div class="confirm_block">
-                        <a href="javascript:void(0)" class="confirm_button" onclick="$('#page_tabs').tabs('select',5)" >Изменить</a>
+                        <a href="javascript:void(0)" class="confirm_button" onclick="$('#page_tabs').tabs('select',4)" >Изменить</a>
                     </div>
                 </div>
             </div>
@@ -209,7 +208,7 @@
             <!--== /block ==-->
 
             <!--== block ==-->
-            <div id="st_tbs3" class="student_tabs_block">
+<!--            <div id="st_tbs3" class="student_tabs_block">
                 <div class="studen_cart_info">
                     <h1>Тариф</h1>
 
@@ -225,7 +224,7 @@
                     </div>
 
                 </div>
-            </div>
+            </div>-->
             <!--== /block ==-->
 
             <!--== block ==-->
@@ -259,7 +258,7 @@
                             <td>
                                 <select name="class[<?=$i?>]" class="greyselect" style="width: 170px" disabled="disabled">
                                     <? foreach($classroom_list as $classroom_ar ): 
-                                        if( $timetable_list[$i] ){
+                                        if( isset($timetable_list[$i]) && $timetable_list[$i] ){
                                             if( $timetable_list[$i]['classroom_id'] == $classroom_ar['id'] )
                                                 $class_selected = ' selected="selected" ';
                                             else
@@ -276,7 +275,7 @@
                             </td>
                             <td>
                                 <select name="start_lesson[<?=$i?>]" class="greyselect" style="width: 95px">
-                                <? if($timetable_list[$i]) 
+                                <? if( isset($timetable_list[$i]) && $timetable_list[$i] ) 
                                        echo set_select_value($timeselect_opt, $timetable_list[$i]['time_start']);
                                    else
                                        echo $timeselect_opt;
@@ -301,7 +300,7 @@
                             <td>
                                 <select name="teacher[<?=$i?>]" class="greyselect" style="width: 170px">
                                 <?  foreach($teachers_list as $teacher_ar ): 
-                                    if( $timetable_list[$i] ){
+                                    if( isset($timetable_list[$i]) && $timetable_list[$i] ){
                                             if( $timetable_list[$i]['user_id'] == $teacher_ar['id'] )
                                                 $teacher_selected = ' selected="selected" ';
                                             else
@@ -372,24 +371,24 @@
                     <h1>
                         Информация о группе 
                         <span style=" display: inline-block; width: 20px;"></span>
-                        <a href="#">Архив</a>
                     </h1>
 
                     <form id="upd_group_form" action="/action/group/upd_group/">
+                        <input type="hidden" name="id" value="<?=$group_info_ar['id']?>" />
                         <table class="student_cart_info_tbl group_cart_info_tbl" style="width: 100%" >
                             <tr>
                                 <td style="width: 130px;">Названи</td>
-                                <td><input type="text" name="tmp[]" value="<?= $group_info_ar['name'] ?>" class="greyinput" style="width: 220px;" /></td>
+                                <td><input type="text" name="group_name" value="<?= $group_info_ar['name'] ?>" class="greyinput" style="width: 220px;" /></td>
                             </tr>
                             <tr>
                                 <td style="vertical-align: middle;" >Язык</td>
                                 <td>
-                                    <select name="lang" class="greyselect" style="width: 190px" >
-                                            <? foreach ($lang_list as $lang_ar): ?>
-                                        <option <? if ($lang_ar['id'] == $group_info_ar['lang_id']) echo ' selected="selected" '; ?> value="<?= $lang_ar['id'] ?>">
-                                        <?= $lang_ar['name'] . ', ' . $lang_ar['short_name'] ?>
-                                        </option>
-<? endforeach; ?>
+                                    <select name="lang_id" class="greyselect" style="width: 190px" >
+                                       <? foreach ($lang_list as $lang_ar): ?>
+                                            <option <? if ($lang_ar['id'] == $group_info_ar['lang_id']) echo ' selected="selected" '; ?> value="<?= $lang_ar['id'] ?>">
+                                                <?= $lang_ar['name'] . ', ' . $lang_ar['short_name'] ?>
+                                            </option>
+                                        <? endforeach; ?>
                                     </select>
                                 </td>
                             </tr>
@@ -397,70 +396,70 @@
                                 <td style="vertical-align: middle;" >Начальный уровень</td>
                                 <td>
                                     <select name="level_start" class="greyselect" style="width: 55px" >
-                                            <? foreach ($level_list as $level_ar): ?>
-                                        <option <? if ($level_ar['id'] == $group_info_ar['level_id']) echo ' selected="selected" '; ?> value="<?= $level_ar['id'] ?>">
-                                        <?= $level_ar['name'] ?>
-                                        </option>
-<? endforeach; ?>
+                                        <? foreach ($level_list as $level_ar): ?>
+                                            <option <? if ($level_ar['id'] == $group_info_ar['level_id']) echo ' selected="selected" '; ?> value="<?= $level_ar['id'] ?>">
+                                                <?= $level_ar['name'] ?>
+                                            </option>
+                                        <? endforeach; ?>
                                     </select>
                                 </td>
                             </tr>
                             <tr>
                                 <td style="vertical-align: middle;" >Текущий уровень</td>
                                 <td>
-                                    <select name="level_now" class="greyselect" style="width: 55px" >
-                                            <? foreach ($level_list as $level_ar): ?>
-                                        <option <? if ($level_ar['id'] == $group_info_ar['level_id']) echo ' selected="selected" '; ?> value="<?= $level_ar['id'] ?>">
-                                        <?= $level_ar['name'] ?>
-                                        </option>
-<? endforeach; ?>
+                                    <select name="level_id" class="greyselect" style="width: 55px" >
+                                        <? foreach ($level_list as $level_ar): ?>
+                                            <option <? if ($level_ar['id'] == $group_info_ar['level_id']) echo ' selected="selected" '; ?> value="<?= $level_ar['id'] ?>">
+                                                <?= $level_ar['name'] ?>
+                                            </option>
+                                        <? endforeach; ?>
                                     </select>
                                 </td>
                             </tr>
-                            <tr>
+<!--                            <tr>
                                 <td>Учашихся</td>
                                 <td><input type="text" name="" value="<?= $group_info_ar['cnt_student'] ?>" class="greyinput" style="width: 45px;" /></td>
-                            </tr>
-                            <tr>
+                            </tr>-->
+<!--                            <tr>
                                 <td style="vertical-align: middle;">Формат</td>
                                 <td>
                                     <select name="roup_format" class="greyselect" style="width: 190px" >
-                                            <? foreach ($group_format_list as $group_format_ar): ?>
-                                        <option <? if ($group_format_ar['id'] == $group_info_ar['group_format_id']) echo ' selected="selected" '; ?> value="<?= $group_format_ar['id'] ?>">
-                                        <?= $group_format_ar['name'] ?>
+                                        <? #foreach ($group_format_list as $group_format_ar): ?>
+                                        <option <? #if ($group_format_ar['id'] == $group_info_ar['group_format_id']) echo ' selected="selected" '; ?> value="<?#= $group_format_ar['id'] ?>">
+                                        <?#= $group_format_ar['name'] ?>
                                         </option>
-<? endforeach; ?>
+                                        <? #endforeach; ?>
                                     </select>
                                 </td>
-                            </tr>
+                            </tr>-->
                             <tr>
                                 <td colspan="2" class="info_space"></td>
                             </tr>
                             <tr>
                                 <td>Начало занятий</td>
-                                <td><input type="text" name="tmp[]" class="greyinput date_input_all" style="width: 70px;" /></td>
+                                <td><input type="text" name="start_lesson" class="greyinput date_input_all" style="width: 70px;" value="<?=timestamp_to_date( $group_info_ar['start_lesson_date'] )?>" /></td>
                             </tr>
                             <tr>
                                 <td>Окончание занятий</td>
-                                <td><input type="text" name="tmp[]" class="greyinput date_input_all" style="width: 70px;" /></td>
+                                <td><input type="text" name="stop_lesson" class="greyinput date_input_all" style="width: 70px;" value="<?=timestamp_to_date( $group_info_ar['stop_lesson_date'] )?>" /></td>
                             </tr>
-                            <tr>
+<!--                            <tr>
                                 <td colspan="2" class="info_space"></td>
-                            </tr>
+                            </tr>-->
 
-                            <tr>
+<!--                            <tr>
                                 <td>Аудитория</td>
                                 <td>
                                     <table class="student_cart_info_tbl width_auto" style="width: 100%" >
                                         <?
-                                        if ($group_classroom_list != NULL):
-                                        foreach ($group_classroom_list as $group_classroom_ar):
+                                        #if ($group_classroom_list != NULL):
+                                        #foreach ($group_classroom_list as $group_classroom_ar):
                                         ?>
                                         <tr>
-                                            <td style="width: 210px" ><?= $group_classroom_ar['name'] ?></td>
+                                            <td style="width: 210px" ><?#= $group_classroom_ar['name'] ?></td>
                                             <td>
                                                 <a class="del_payment" href="javascript:void(0)" 
-                                                   onclick="send_post(  { id: <?= $group_students_ar['id'] ?>}, 
+                                                   onclick="send_post(  { id: <?#= $group_students_ar['id'] ?>}, 
                                                                '/', 
                                                                {title:'Выполняется удаление студента из группы', content:'loader'} )">
                                                     Удалить
@@ -468,49 +467,49 @@
                                             </td>
                                         </tr>
                                         <?
-                                        endforeach;
-                                        else:
+                                        #endforeach;
+                                        #else:
                                         ?>
                                         <tr>
                                             <td colspan="2" >Группа не связанна ни с одной аудиторией</td>
                                         </tr>
-<? endif; ?>
+<? #endif; ?>
                                         <tr>
                                             <td>
                                                 <select name="classroom" class="greyselect" style="width: 190px" >
                                                     <option value="">Выбор аудитории</option>
-                                                        <? foreach ($classroom_list as $classroom_ar): ?>
-                                                    <option value="<?= $classroom_ar['id'] ?>">
-                                                    <?= $classroom_ar['name'] ?>
+                                                        <? #foreach ($classroom_list as $classroom_ar): ?>
+                                                    <option value="<?#= $classroom_ar['id'] ?>">
+                                                    <?#= $classroom_ar['name'] ?>
                                                     </option>
-<? endforeach; ?>
+<? #endforeach; ?>
                                                 </select>
                                             </td>
                                             <td style="vertical-align: top; line-height: 20px"> или &nbsp;&nbsp; <a href="#">добавьте новую аудиторию</a></td>
                                         </tr>
                                     </table>
                                 </td>
-                            </tr>
+                            </tr>-->
 
-                            <tr>
+<!--                            <tr>
                                 <td colspan="2" class="info_space"></td>
-                            </tr>
+                            </tr>-->
 
-                            <tr>
+<!--                            <tr>
                                 <td>Преподаватель</td>
                                 <td>
                                     <table class="student_cart_info_tbl width_auto" style="width: 100%" >
                                         <?
-                                        if ($group_teachers_list != NULL):
-                                        foreach ($group_teachers_list as $group_teachers_ar):
+                                        #if ($group_teachers_list != NULL):
+                                        #foreach ($group_teachers_list as $group_teachers_ar):
                                         ?>
                                         <tr>
                                             <td style="width: 210px" >
-                                                <a href="/teacher_cart/<?= $group_teachers_ar['id'] ?>/"><?= $group_teachers_ar['fio'] ?></a>
+                                                <a href="/teacher_cart/<?#= $group_teachers_ar['id'] ?>/"><?#= $group_teachers_ar['fio'] ?></a>
                                             </td>
                                             <td>
                                                 <a class="del_payment" href="javascript:void(0)"
-                                                   onclick="send_post(  { id: <?= $group_students_ar['id'] ?>}, 
+                                                   onclick="send_post(  { id: <?#= $group_students_ar['id'] ?>}, 
                                                                '/', 
                                                                {title:'Выполняется удаление препадавателя из группы', content:'loader'} )">
                                                     Удалить
@@ -518,31 +517,31 @@
                                             </td>
                                         </tr>
                                         <?
-                                        endforeach;
-                                        else:
+                                        #endforeach;
+                                        #else:
                                         ?>
                                         <tr>
                                             <td colspan="2">Для группы не назначен препадаватель</td>
                                         </tr>
-<? endif; ?>
+<? #endif; ?>
                                         <tr>
                                             <td>
                                                 <select name="teacher" class="greyselect" style="width: 190px" >
-                                                        <? foreach ($teachers_list as $teacher_ar): ?>
-                                                    <option value="<?= $teacher_ar['id'] ?>">
-                                                    <?= $teacher_ar['fio_sname']." ".$teacher_ar['fio_name'] ?>
+                                                        <? #foreach ($teachers_list as $teacher_ar): ?>
+                                                    <option value="<?#= $teacher_ar['id'] ?>">
+                                                    <?#= $teacher_ar['fio_sname']." ".$teacher_ar['fio_name'] ?>
                                                     </option>
-<? endforeach; ?>
+<? #endforeach; ?>
                                                 </select>
                                             </td>
                                             <td style="vertical-align: top; line-height: 20px"> или или &nbsp;&nbsp; <a href="#">добавьте нового преподавателя</a></td>
                                         </tr>
                                     </table>
                                 </td>
-                            </tr>
-                            <tr>
+                            </tr>-->
+<!--                            <tr>
                                 <td colspan="2" class="info_space"></td>
-                            </tr>
+                            </tr>-->
                         </table>
                     </form>
 

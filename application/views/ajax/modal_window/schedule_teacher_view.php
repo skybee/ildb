@@ -19,6 +19,7 @@
             </option>
         <? endforeach; ?>
     </select>
+</form>
 
 <div class="confirm_block" >
     <a href="javascript:void(0)" class="confirm_button jq_payment_btn" id="payment_add_btn" 

@@ -108,8 +108,7 @@ class main extends CI_Controller{
         
         $this->load->view('main_view', $main_data_ar );
     }
-    
- 
+   
     function students( $param = 'live', $status = 1 ){
         
         $menu_data['student_status']    = $this->list->get_student_status();
@@ -145,7 +144,6 @@ class main extends CI_Controller{
         
         $this->load->view('main_view', $main_data_ar );
     }
-    
     
     function groups(){
         
@@ -188,7 +186,7 @@ class main extends CI_Controller{
         $gp_data['timeselect_opt']              = $this->load->view('component/timeselect_opt_view','',TRUE);
         
 //        echo '<pre>';
-//        print_r( $gp_data );
+//        print_r( $gp_data['timetable_list'] );
 //        echo '</pre>';
         
         $main_data_ar['title']                  = 'Группы &rarr; '.$gp_data['group_info_ar']['name'];
@@ -197,7 +195,6 @@ class main extends CI_Controller{
         
         $this->load->view('main_view', $main_data_ar );
     }
-    
     
     function add_group(){
         $gp_data['classroom_list']  = $this->list->get_classroom();
@@ -208,9 +205,7 @@ class main extends CI_Controller{
 //        $gp_data['students_list']   = $this->student->get_students();
         $gp_data['students_list']   = $this->student->get_students_for_status();
         
-//        echo '<pre>';
-//        print_r($gp_data);
-//        echo '</pre>';          
+//        echo '<pre>'.print_r($gp_data,1).'</pre>';          
         
         $main_data_ar['left_menu']              = $this->load->view('component/left_menu_view', '', TRUE);
         $main_data_ar['right_content']          = $this->load->view('page/add_group_view', $gp_data, TRUE);
@@ -250,7 +245,6 @@ class main extends CI_Controller{
         
         $this->load->view('main_view', $main_data_ar );
     }
-    
     
     function add_teacher(){
         $tch_data['lang_list']  = $this->list->get_lang();
@@ -313,8 +307,6 @@ class main extends CI_Controller{
             foreach( $tmp_group_ar as $key => $val) // дополнение массива групп индивидуальными группами
                 $sch_data['group_list'][$key] = $val;
         
-//        echo '<pre>'.print_r($sch_data, 1).'</pre>';
-        
         $main_data_ar['title']          = 'Расписание';
         $main_data_ar['left_menu']      = $this->load->view('component/left_menu_view', '', TRUE);
         
@@ -341,6 +333,8 @@ class main extends CI_Controller{
         }    
         else
             $main_data_ar['right_content']  = $this->load->view('page/schedule_view', $sch_data, TRUE);
+        
+//        echo '<pre>'.print_r($sch_data['timetable_list'], 1).'</pre>';
         
         $this->load->view('main_view', $main_data_ar );
     }
