@@ -285,4 +285,12 @@ class group_model extends CI_Model{
         
         return $result_ar;
     }
+    
+    function del_student_from_group($group_id, $student_id){
+        
+        $group_id       = (int) $group_id;
+        $student_id     = (int) $student_id;
+        
+        return $this->db->query("DELETE FROM `student_school_groups` WHERE `student_id`='{$student_id}' AND `school_groups_id`='{$group_id}' ");
+    }
 }

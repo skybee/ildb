@@ -161,7 +161,8 @@ a#btn_top_date_vavigation_right:active{ background-position: -40px -78px; } a#bt
     width: 30px;
 }
 .left_menu_width{ 
-    width: 170px; height: 800px; 
+    width: 170px; 
+    /*height: 800px;*/ 
     overflow: hidden;
 }
 #left_menu_relative{

@@ -160,7 +160,10 @@ $(document).ready(function() {
 set_jq_action();
 
 
-         
+//== растягивание по высоте
+    min_doc_h = $(window).height() - 39;
+    $('.left_menu_width').css({'min-height': min_doc_h+'px'});
+    
     
     
  
@@ -381,6 +384,40 @@ set_jq_action();
             $('tr.jq_student_str').css({'display':'table-row'});
     });
 //  </поиск в выдачи студентов>
+
+
+//  <поиск в выдачи студентов>
+    $('.jq_tch_search').keyup(function(){
+
+        searchTxt = $(this).attr('value');
+        StudentStrObj = $('tr.jq_teacher_str');
+        
+        searchObj = RegExp(searchTxt, "i");
+        
+        if(searchTxt.length >= 2 ){ //ограничение ноличества символов поиска
+            for(i=0; i<StudentStrObj.length; i++){
+                    nameStr     = $('td:nth-child(3) a',StudentStrObj[i]).text();
+                    phoneStr    = $('td:nth-child(4)',  StudentStrObj[i]).text();
+                    mailStr     = $('td:nth-child(5)',  StudentStrObj[i]).text();
+                    langStr     = $('td:nth-child(6)',  StudentStrObj[i]).text();
+                    groupAr     = $('td:nth-child(7) a',StudentStrObj[i]);
+                    
+                    groupStr    = '';
+                    for(ii=0; ii<groupAr.length; ii++)
+                        groupStr += $(groupAr[ii]).text();
+                    
+
+                    if( nameStr.search(searchObj) != -1 || phoneStr.search(searchObj) != -1 || mailStr.search(searchObj) != -1 || langStr.search(searchObj) != -1  || groupStr.search(searchObj) != -1 )
+                        $( StudentStrObj[i] ).css({'display':'table-row'});
+                    else
+                        $( StudentStrObj[i] ).css({'display':'none'});  
+            }
+        }
+        else
+            $('tr.jq_teacher_str').css({'display':'table-row'});
+    });
+//  </поиск в выдачи студентов>
+
 
 //== подсветка input блока ==//
     $('.add_st_input_block_left input[type=radio]').change(function(){

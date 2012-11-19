@@ -38,12 +38,12 @@
                 <li><a href="#st_tbs1">Информация</a></li>
                 <li><a href="#st_tbs2">Оплата</a></li>
                 <li><a href="#st_tbs3">Группы <span>(1)</span></a></li>
+                <? if ($individual): ?>
+                    <li><a href="#st_tbs7">График</a></li>
+                    <li><a href="#st_tbs6">Выходные дни</a></li>
+                <? endif; ?>
                 <li><a href="#st_tbs4">Сертификаты <span>(2)</span></a></li>
                 <li style="display:none;"><a href="#st_tbs5">Редактировать</a></li>
-                <? if ($individual): ?>
-                    <li><a href="#st_tbs6">Выходные дни</a></li>
-                    <li><a href="#st_tbs7">График</a></li>
-                <? endif; ?>
             </ul>
             <? if ($last_payment): ?>
                 <div class="last_payment_block">

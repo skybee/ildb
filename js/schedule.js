@@ -60,10 +60,13 @@ function hide_empty_dot(){ // скрывает пустые ячейки
             next_dot = $(next_dot).next('div');
         }
     }
+    
+    $.cookie('empty_dot', 'hide', { expires: 7, path: '/' } );
 }
 
 function show_empty_dot(){ // показывает скрытые пустые ячейки
     $('.sch_time_td').css({'display':'block'});
+    $.cookie('empty_dot', 'show', { expires: 7, path: '/' } );
 }
 
 function set_drag_data( drag ){
@@ -136,9 +139,16 @@ function get_check_lesson_data(){
 }
 
 
+
 $(document).ready(function() {
     
     sch_set_empty_dot();
+    
+    //<show or hide empty dot on load>//
+    empty_dot_cookie = $.cookie('empty_dot');
+    if( empty_dot_cookie  == 'hide' )
+        hide_empty_dot();
+    //</show or hide empty dot on load>//
     
     // == MAIN SCHEDULE == //
     $('.sch_drag').draggable({
@@ -211,5 +221,30 @@ $(document).ready(function() {
     
     // выключение подсветки ячеек по клику на пустом поле
 //    $('.main_schadule_tbl div[starttime]').click(function(){ del_street_light() });
+
+    //  <поиск в расписании>
+    $('.jq_sch_search').keyup(function(){
+
+        searchTxt = $(this).attr('value');
+        StudentStrObj = $('.sch_drag');
+        
+        searchObj = RegExp(searchTxt, "i");
+        
+        if(searchTxt.length >= 2 ){ //ограничение ноличества символов поиска
+            for(i=0; i<StudentStrObj.length; i++){
+                    groupStr    = $('.sch_drag_groupname a',                    StudentStrObj[i]).text();
+                    langStr     = $('.sch_drag_teachername span:nth-child(1)',  StudentStrObj[i]).text();
+                    teachStr    = $('.sch_drag_teachername span:nth-child(2)',  StudentStrObj[i]).text();
+
+                    if( groupStr.search(searchObj) != -1 || langStr.search(searchObj) != -1 || teachStr.search(searchObj) != -1 )
+                        $( StudentStrObj[i] ).css({'opacity':'1'});
+                    else
+                        $( StudentStrObj[i] ).css({'opacity':'0.35'});  
+            }
+        }
+        else
+            $('.sch_drag').css({'opacity':'1'});
+    });
+//  </поиск в выдачи студентов>
     
 });

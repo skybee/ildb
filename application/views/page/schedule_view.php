@@ -27,7 +27,7 @@
                                 </div>
 
                                 <div class="filter_group_top">
-                                    <input type="text" name="group_filter" id="group_filter" />
+                                    <input type="text" name="group_filter" id="group_filter" class="jq_sch_search" />
                                 </div>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                                                     <div class="sch_drag_teachername" teacher_id="<?=$teacher_ar['id']?>">
                                                         <span style="color:<?=$group_ar['lang_color']?>"><?= $group_ar['lang'] ?></span>
                                                         &nbsp;
-                                                        <?= $teacher_ar['fio_name'].' '.$teacher_ar['fio_sname'] ?>
+                                                        <span><?= $teacher_ar['fio_name'].' '.$teacher_ar['fio_sname'] ?></span>
                                                     </div>
                                                     <div class="sch_drag_langname"></div>
                                                 </div>

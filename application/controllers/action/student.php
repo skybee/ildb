@@ -10,6 +10,7 @@ class student extends CI_Controller{
         $this->load->database();
         $this->load->model('student_model', 'student', TRUE);
         $this->load->library('validform_lib');
+        $this->load->library('schedule_lib');
         $this->load->helper('valid_data');
         $this->load->helper('date_convert');
         
@@ -64,6 +65,28 @@ class student extends CI_Controller{
                 }
                 //занесение студента индивидуального обучения
                 else{
+                    
+                    //=== <Проверка пересечения в рассписании> ===//
+                    foreach( $_POST['day'] as $day => $val ){
+                        $stop_lesson = summ_time( $_POST['start_lesson'][$day], '+', $_POST['lesson_long'][$day] );
+                        //== проверка занятости кабинета ==//
+                        if( !$this->schedule_lib->check_lesson_valid($day, $_POST['class'][$day], $_POST['start_lesson'][$day], $stop_lesson) ){
+                            $anser_ar['title']      = 'Ошибка добавления';
+                            $anser_ar['content']    = 'Одно или несколько занятий пересекаются с уже существующими.<br /> Проверьте аудиторию и время занятий';
+                            echo json_encode( $anser_ar );
+                            return;
+                        }
+
+                        if( !$this->schedule_lib->check_teacher_valid($day, $_POST['start_lesson'][$day], $stop_lesson, $_POST['teacher'][$day]) ){
+                            $anser_ar['title']      = 'Ошибка добавления';
+                            $anser_ar['content']    = 'Один или несколько преподавателей заняты в выбранное Вами время';
+                            echo json_encode( $anser_ar );
+                            return;
+                        }
+                    }
+                    //=== </Проверка пересечения в рассписании> ===//
+                    
+                    
                     $student_id = $this->student->add_individual_student( $_POST );
                     if( $student_id ){
                         $anser_ar['title']      = 'Студент добавлен в базу';

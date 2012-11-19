@@ -145,11 +145,11 @@
                         if ($group_students_list != NULL):
                         foreach ($group_students_list as $group_students_ar):
                         ?>
-                        <li>
+                        <li id="stud_line_<?= $group_students_ar['id'] ?>">
                             <a href="/student_cart/<?= $group_students_ar['id'] ?>/"><?= $group_students_ar['fio'] ?></a>      
                             <a href="javascript:void(0)" class="del_payment"
-                               onclick="send_post(  { id: <?= $group_students_ar['id'] ?>}, 
-                                           '/', 
+                               onclick="send_post(  { st_id: <?= $group_students_ar['id'] ?>, gp_id:<?=$group_info_ar['id'] ?>}, 
+                                           '/action/group/del_student_from_group/', 
                                            {title:'Выполняется удаление студента из группы', content:'loader'} )">
                                 Удалить
                             </a>
@@ -166,13 +166,14 @@
 
                     <div class="add_students_scroll_block">
                         <form id="add_students_in_group_form" action="/action/group/add_students/" >
+                            <input type="hidden" name="group_id" value="<?=$group_info_ar['id'] ?>" />
                             <ul>
                                 <?
                                 if ($notin_group_student_list != NULL):
                                 foreach ($notin_group_student_list as $notin_group_student_ar):
                                 ?>
                                 <li> 
-                                    <input type="checkbox" name="new_student[]" value="<?= $notin_group_student_ar['id'] ?>" /> 
+                                    <input type="checkbox" name="students_id_ar[]" value="<?= $notin_group_student_ar['id'] ?>" /> 
                                     <a target="_blank" href="/student_cart/<?= $notin_group_student_ar['id'] ?>/"><?= $notin_group_student_ar['fio'] ?></a> 
                                 </li>
                                 <?

@@ -30,7 +30,7 @@
             </a>
 
             <div class="filter_group_top">
-                <input type="text" name="group_filter" id="group_filter" />
+                <input type="text" name="group_filter" id="group_filter" class="jq_tch_search"/>
             </div>
         </div>
     </div>
@@ -51,7 +51,7 @@
             foreach ($teachers_list as $teacher_ar):
                 ?>
 
-                <tr>
+        <tr class="jq_teacher_str">
                     <td>
                         <input type="checkbox" name="tmp[]" class="checkline" 
                                copymail=    "<?= $teacher_ar['email'] ?>" 

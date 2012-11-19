@@ -8,6 +8,7 @@
         
         <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
         <script type="text/javascript" src="/js/jquery-ui-1.8.18.custom.min.js"></script>
+        <script type="text/javascript" src="/js/jquery.cookie.js"></script>
         <script type="text/javascript" src="/js/jquery.ezmark.min.js"></script>
         <script type="text/javascript" src="/js/chosen.jquery.min.js"></script>
         <script type="text/javascript" src="/js/jquery.ui.datepicker-ru.js"></script>

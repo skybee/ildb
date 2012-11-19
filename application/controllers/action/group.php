@@ -31,11 +31,26 @@ class group extends CI_Controller{
                 $this->student->add_to_group( $group_id, $st_id, '0000-00-00' );
             }
             $anser_ar['title']      = 'Студенты добавленны в группу';
-            $anser_ar['content']    = '';
+            $anser_ar['content']    = 'Обновите страницу, чтобы увидеть изменения';
         }
         else{
             $anser_ar['title']      = 'Ошибка добавления студентов';
             $anser_ar['content']    = 'возможно не указана группа или не выбраны студенты';
+        }
+        
+        echo json_encode( $anser_ar );
+    }
+    
+    function del_student_from_group(){
+        
+        if( $this->group->del_student_from_group( $_POST['gp_id'], $_POST['st_id']) ){
+            $anser_ar['title']      = 'Студент удален из группы';
+            $anser_ar['content']    = '';
+            $anser_ar['script']     = "$('li#stud_line_{$_POST['st_id']}').css({display:'none'})";
+        }
+        else{
+            $anser_ar['title']      = 'Ошибка! Студент не удален';
+            $anser_ar['content']    = '';
         }
         
         echo json_encode( $anser_ar );
