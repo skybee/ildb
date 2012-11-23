@@ -13,7 +13,7 @@ function set_jq_style(){
 //   $('.group_tbl td:nth-child(4)').css({'width':'50px'});
 //   $('.group_tbl td:nth-child(5)').css({'width':'70px'});
 //   $('.group_tbl td:nth-child(6)').css({'width':'70px'});
-   $('.group_tbl tr:odd, .memo_tbl tr:odd').css({'background-color':'#deeaf5'});
+//   $('.group_tbl tr:odd, .memo_tbl tr:odd').css({'background-color':'#deeaf5'});
    
    
    //== таблица студенты ==//
@@ -111,8 +111,8 @@ $(document).ready(function() {
    $('.greyinput').wrap('<div class="greyinput_block"><div></div></div>');
    
    
-    top_menu_w = $('#right_content').outerWidth(true);
    $('#fix_top_menu').waypoint(function(){
+       top_menu_w = $('#right_content').width(); //$('#fix_space').outerWidth(true);
        $('#fix_top_menu').css({width:top_menu_w+'px'});
        $('#fix_top_menu').toggleClass('fix_top_menu_true');
    });

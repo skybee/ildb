@@ -525,6 +525,9 @@ a.top_left_btn_action:active{   background-position: left -60px; }
     width: 100%;
     border-collapse: collapse;
 }
+.group_tbl tr:nth-child(odd), .memo_tbl tr:nth-child(odd){
+    background-color: #deeaf5;
+}
 .group_tbl tr:hover, .memo_tbl tr:hover{
     background-image: url('/img/bg_group_tr_hover.png');
 }

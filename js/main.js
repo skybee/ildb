@@ -154,19 +154,156 @@ function set_jq_action(){
     // </раскрытие/закрытие формы>
 }
 
+
+//== установка ширины таблицы ==//
+var default_sch_w;
+function width_main_schedule( param ){
+
+    if( param == 'get_default' ){
+        default_sch_w = $('#right_content').width();
+//        default_sch_w = $('#main').width() - $('#left_menu').width();
+        shc_w = default_sch_w;
+    }
+    else if( param == 'set_default' ){
+        shc_w = default_sch_w;
+    }
+    else{
+        shc_w = $('#right_content').width();
+//        shc_w = $('#main').width() - $('#left_menu').width();
+    }
+//    alert( shc_w + ' - ' + param);
+    $('#main_schadule').css({'width':shc_w+'px'});
+}
+//== //установка ширины таблицы ==//
+
+
+//== функции добавления группы ==//
+function add_teacher_to_group(){
+    teacher_id  = $('#group_teacher').attr('value');
+    teacher_fio = $('#group_teacher option:selected').text();
+    
+    teacher_str = '<tr id="teacher_tr_'+teacher_id+'"><td style="width: 210px" >\n\
+<a href="/teacher_cart/'+teacher_id+'/">'+teacher_fio+'</a>\n\
+</td><td><a class="del_payment" href="javascript:void(0)" onclick="del_teacher_from_group('+teacher_id+')">Удалить</a>\n\
+<input type="hidden" name="teacher_for_group[]" value="'+teacher_id+'"></td></tr>';
+    
+    teacher_option_str = '<option value="'+teacher_id+'">'+teacher_fio+'</option>';
+    
+    $('#teacher_tbl').prepend(teacher_str);
+    $('.group_schedule_tbl tr td:nth-child(5) select').prepend(teacher_option_str);
+//    $('#group_teacher option[value='+teacher_id+']').remove();
+}
+
+function del_teacher_from_group( id ){
+    $('#teacher_tr_'+id).remove();
+    $('.group_schedule_tbl tr td:nth-child(4) select option[value='+id+']').remove(); 
+}
+//== /функции добавления группы ==//
+
+
+//== функции добавления студентов в группу ==//
+function add_student_to_group(){
+    student_id  = $('select[name=student_tmp]').attr('value');
+    student_fio = $('select[name=student_tmp] option:selected').text();
+    
+    student_str = '<li id="student_li_'+student_id+'"><a href="/student/'+student_id+'/">'+student_fio+'</a>\n\
+<a href="javascript:void(0)" class="del_payment" onclick="del_st_from_group('+student_id+')">Удалить</a>\n\
+<input type="hidden" name="students_in_group[]" value="'+student_id+'"></li>';
+    
+    $('.studen_cart_studen_list li.studen_list_position_li:last-child').before(student_str);
+}
+
+function add_students_to_group(){
+        data_obj = $('.checkline:checked');
+        idAr = new Array;
+        for(i=0; i<data_obj.length; i++){
+            idAr[i] = $(data_obj[i]).attr('student_id');
+        }
+//        console.log(idAr);
+        ajax_show_modal('/ajax/show_modal/add_student_to_group/', {id_ar: idAr} );
+    }
+
+function del_st_from_group(id){
+    $('#student_li_'+id).remove();
+}
+
+function upd_payment(data){
+    $('#show_add_payment_form').hide(0);
+    $('#add_payment_form_block').show(200);
+    $('.st_cart_payment_scroll_block').animate({'max-height':'200px'},200);
+    
+    $('input[name=payment_id]')                     .attr('value', data.id);
+    $('.paymant_add_tbl input[name=summ]')          .attr('value', data.summ);
+    $('.paymant_add_tbl input[name=cnt_lessons]')   .attr('value', data.cnt_lesson);
+    $('.paymant_add_tbl input[name=date]')          .attr('value', data.date);
+    $('.paymant_add_tbl textarea[name=comment]')    .attr('value', data.comment);
+    
+    $('.jq_payment_btn').text('Изменить платеж');
+    
+    if( data.not_full == 1){ //частичная оплата
+        $('.paymant_add_tbl input[name=not_full]')  .attr('checked', 'checked');
+        $('.paymant_add_tbl .st_cart_schedule_checkboxCls').addClass('st_cart_schedule_checkedCls');
+    }
+    else
+        $('.paymant_add_tbl .st_cart_schedule_checkboxCls').removeClass('st_cart_schedule_checkedCls');
+}
+//== /функции добавления студентов в группу ==//
+
+//== сворачивание и разворачивание левой панели меню ==//
+    function left_menu_hide(){
+        $('.left_menu_width').animate({'width':'38px', 'opacity':'0'}, 0, function(){
+            $('.left_menu_width').css({'visibility':'hidden'}); //== для блядского IE
+            $('#left_menu_small').css({'display':'block'}).animate({'opacity':'1'}, 0);
+            $('#top_back_btn').css({'background-position':'left -39px'});
+            width_main_schedule();
+            top_menu_w2 = $('#right_content').width();
+            $('#fix_top_menu').css({width:top_menu_w2+'px'});
+            
+            $.cookie('left_menu', 'hide', { expires: 7, path: '/' } );
+        });
+    }
+    
+    function left_menu_show(){
+        $('#left_menu_small').animate({'opacity':'0'}, 0, function(){
+            $('#left_menu_small').css({'display':'none'});
+            $('.left_menu_width').css({'visibility':'visible'}); //== для блядского IE
+            $('.left_menu_width').animate({'width':'170px', 'opacity':'1'}, 0);
+            $('#top_back_btn').css({'background-position':'left top'});
+            top_menu_w2 = $('#right_content').width()-132;
+            $('#fix_top_menu').css({width:top_menu_w2+'px'});
+            width_main_schedule('set_default');
+            
+            $.cookie('left_menu', 'show', { expires: 7, path: '/' } );
+        });
+    }
+
+    
+    left_menu_fn_id = 0;
+    function hide_show_left_menu(){
+        if( left_menu_fn_id == 1 ){
+            left_menu_show();
+            left_menu_fn_id = 0;
+        }    
+        else{
+            left_menu_hide();
+            left_menu_fn_id = 1;
+        }
+    }
+//== /сворачивание и разворачивание левой панели меню ==//
+
 $(document).ready(function() {
 
 
 set_jq_action();
 
+//== сворачивание и разворачивание левой панели меню ==//
+    $('#top_back_btn').click(function(){ hide_show_left_menu(); });
+    $('.small_menu_search_btn').click(function(){ left_menu_show(); });
+//== /сворачивание и разворачивание левой панели меню ==//    
 
 //== растягивание по высоте
     min_doc_h = $(window).height() - 39;
     $('.left_menu_width').css({'min-height': min_doc_h+'px'});
-    
-    
-    
- 
 
 
 //== checkbox в графике занятий студента (schedule) ==//
@@ -231,34 +368,6 @@ set_jq_action();
             $( this_li ).removeClass('selected_student') ;
     });  
 //== /checkbox - выбор студентов в карточке группы ==//
-
-
-//== сворачивание и разворачивание левой панели меню ==//
-    function left_menu_hide(){
-        $('.left_menu_width').animate({'width':'38px', 'opacity':'0'}, 200, function(){
-            $('.left_menu_width').css({'visibility':'hidden'}); //== для блядского IE
-            $('#left_menu_small').css({'display':'block'}).animate({'opacity':'1'}, 200);
-            $('#top_back_btn').css({'background-position':'left -39px'});
-            width_main_schedule();
-        });
-    }
-    
-    function left_menu_show(){
-        $('#left_menu_small').animate({'opacity':'0'}, 200, function(){
-            $('#left_menu_small').css({'display':'none'});
-            $('.left_menu_width').css({'visibility':'visible'}); //== для блядского IE
-            $('.left_menu_width').animate({'width':'170px', 'opacity':'1'}, 200);
-            $('#top_back_btn').css({'background-position':'left top'});
-            width_main_schedule('set_default');
-        });
-    }
-
-    $('#top_back_btn').toggle( left_menu_hide, left_menu_show );
-    $('.small_menu_search_btn').click(function(){left_menu_show()});
-//== /сворачивание и разворачивание левой панели меню ==//
-
-
-
 
 //== отметить/снять все чекбоксы ==//
     $('#check_all').change(function(){
@@ -429,109 +538,13 @@ set_jq_action();
     });
 //== подсветка /input блока ==//
 
-
-    width_main_schedule( 'get_default' ); //установка ширины расписания
+//установка ширины расписания
+    setTimeout("width_main_schedule( 'get_default' )", 100);
+    
+//== сворачивание меню
+    if( $.cookie('left_menu') == 'hide') setTimeout("hide_show_left_menu()", 150);
+    
+//    width_main_schedule( 'get_default' ); //установка ширины расписания
 //    width_main_schedule( 'set_default' ); //установка ширины расписания
 
 });
-
-
-// <добавление студентов в группу>
-    function add_students_to_group(){
-        data_obj = $('.checkline:checked');
-        idAr = new Array;
-        for(i=0; i<data_obj.length; i++){
-            idAr[i] = $(data_obj[i]).attr('student_id');
-        }
-//        console.log(idAr);
-        ajax_show_modal('/ajax/show_modal/add_student_to_group/', {id_ar: idAr} );
-    }
-// </добавление студентов в группу>
-
-//== установка ширины таблицы ==//
-var default_sch_w;
-function width_main_schedule( param ){
-
-    if( param == 'get_default' ){
-        default_sch_w = $('#right_content').width();
-//        default_sch_w = $('#main').width() - $('#left_menu').width();
-        shc_w = default_sch_w;
-    }
-    else if( param == 'set_default' ){
-        shc_w = default_sch_w;
-    }
-    else{
-        shc_w = $('#right_content').width();
-//        shc_w = $('#main').width() - $('#left_menu').width();
-    }
-    
-//    alert( shc_w + ' - ' + param);
-    $('#main_schadule').css({'width':shc_w+'px'});
-}
-//== //установка ширины таблицы ==//
-
-
-//== функции добавления группы ==//
-function add_teacher_to_group(){
-    teacher_id  = $('#group_teacher').attr('value');
-    teacher_fio = $('#group_teacher option:selected').text();
-    
-    teacher_str = '<tr id="teacher_tr_'+teacher_id+'"><td style="width: 210px" >\n\
-<a href="/teacher_cart/'+teacher_id+'/">'+teacher_fio+'</a>\n\
-</td><td><a class="del_payment" href="javascript:void(0)" onclick="del_teacher_from_group('+teacher_id+')">Удалить</a>\n\
-<input type="hidden" name="teacher_for_group[]" value="'+teacher_id+'"></td></tr>';
-    
-    teacher_option_str = '<option value="'+teacher_id+'">'+teacher_fio+'</option>';
-    
-    $('#teacher_tbl').prepend(teacher_str);
-    $('.group_schedule_tbl tr td:nth-child(5) select').prepend(teacher_option_str);
-//    $('#group_teacher option[value='+teacher_id+']').remove();
-}
-
-function del_teacher_from_group( id ){
-    $('#teacher_tr_'+id).remove();
-    $('.group_schedule_tbl tr td:nth-child(4) select option[value='+id+']').remove(); 
-}
-
-//== /функции добавления группы ==//
-
-
-
-
-//== функции добавления студентов в группу ==//
-function add_student_to_group(){
-    student_id  = $('select[name=student_tmp]').attr('value');
-    student_fio = $('select[name=student_tmp] option:selected').text();
-    
-    student_str = '<li id="student_li_'+student_id+'"><a href="/student/'+student_id+'/">'+student_fio+'</a>\n\
-<a href="javascript:void(0)" class="del_payment" onclick="del_st_from_group('+student_id+')">Удалить</a>\n\
-<input type="hidden" name="students_in_group[]" value="'+student_id+'"></li>';
-    
-    $('.studen_cart_studen_list li.studen_list_position_li:last-child').before(student_str);
-}
-
-function del_st_from_group(id){
-    $('#student_li_'+id).remove();
-}
-
-function upd_payment(data){
-    $('#show_add_payment_form').hide(0);
-    $('#add_payment_form_block').show(200);
-    $('.st_cart_payment_scroll_block').animate({'max-height':'200px'},200);
-    
-    $('input[name=payment_id]')                     .attr('value', data.id);
-    $('.paymant_add_tbl input[name=summ]')          .attr('value', data.summ);
-    $('.paymant_add_tbl input[name=cnt_lessons]')   .attr('value', data.cnt_lesson);
-    $('.paymant_add_tbl input[name=date]')          .attr('value', data.date);
-    $('.paymant_add_tbl textarea[name=comment]')    .attr('value', data.comment);
-    
-    $('.jq_payment_btn').text('Изменить платеж');
-    
-    if( data.not_full == 1){ //частичная оплата
-        $('.paymant_add_tbl input[name=not_full]')  .attr('checked', 'checked');
-        $('.paymant_add_tbl .st_cart_schedule_checkboxCls').addClass('st_cart_schedule_checkedCls');
-    }
-    else
-        $('.paymant_add_tbl .st_cart_schedule_checkboxCls').removeClass('st_cart_schedule_checkedCls');
-}
-//== /функции добавления студентов в группу ==//
