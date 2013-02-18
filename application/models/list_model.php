@@ -11,7 +11,12 @@ class list_model extends CI_Model{
     
     function get_groups(){
         $query = $this->db->query("SELECT 
-                                        school_groups.*, school_groups.id AS 'link_id', lang.short_name AS `lang`, lang.color AS `lang_color`, level.name AS `level`, group_format.name AS `group_format` 
+                                        school_groups.*, 
+                                        school_groups.id AS 'link_id', 
+                                        lang.short_name AS `lang`, 
+                                        lang.color AS `lang_color`, 
+                                        level.name AS `level`, 
+                                        group_format.name AS `group_format` 
                                     FROM 
                                         `school_groups`, `lang`, `level`, `group_format` 
                                     WHERE 
@@ -22,6 +27,8 @@ class list_model extends CI_Model{
                                         school_groups.group_format_id = group_format.id
                                         AND 
                                         group_format.id != 1
+                                        AND
+                                        school_groups.status != 404
                                     GROUP BY school_groups.id 
                                     ORDER BY lang.name, level.name");
         

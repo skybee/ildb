@@ -61,6 +61,8 @@ class main extends CI_Controller{
         $st_data['lang_list']       = $this->list->get_lang();
         $st_data['timeselect_opt']  = $this->load->view('component/timeselect_opt_view','',TRUE);
         
+//        print_r( $st_data );        
+        
         $menu_data['student_status']    = $this->list->get_student_status();
         $menu_data['is_students']       = TRUE;
         
@@ -92,9 +94,7 @@ class main extends CI_Controller{
         
         $st_data['info_obj']            = unserialize( $st_data['student_info_ar']['info_obj'] );
         
-//        echo '<pre>';
 //        print_r( $st_data );
-//        echo '</pre>';
         
         if( $st_data['student_info_ar']['status_id'] == 3 ){ // студент без группы
             $st_data['group_tab']       = $this->load->view('ajax/student/none_groups_page_view', $st_data, TRUE);;
@@ -133,9 +133,7 @@ class main extends CI_Controller{
             $main_data_ar['right_content']  = $this->load->view('page/students_view', $st_data, TRUE);
         }
         
-//        echo '<pre>';
-//        print_r($st_data);
-//        echo '</pre>';        
+//        print_r($st_data);       
         
         $main_data_ar['title']          = 'Студенты';
         $menu_data['is_students']       = TRUE;

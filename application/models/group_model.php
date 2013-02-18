@@ -13,7 +13,11 @@ class group_model extends CI_Model{
     function get_groups(){
         $query = $this->db->query("
                                     SELECT 
-                                        school_groups.*, school_groups.id AS `group_id`, lang.name AS `lang_name`, lang.short_name AS `lang_sname`, level.name AS `level_name`,
+                                        school_groups.*, 
+                                        school_groups.id AS `group_id`, 
+                                        lang.name AS `lang_name`, 
+                                        lang.short_name AS `lang_sname`, 
+                                        level.name AS `level_name`,
                                         (SELECT 
                                             COUNT(student.id) 
                                             FROM 
@@ -225,13 +229,13 @@ class group_model extends CI_Model{
             return FALSE;
         
         //присоединение преподователей к группе
-        foreach( $post['teacher_for_group'] as $teacher_id ){
-            $this->db->query("  INSERT INTO `school_groups_users`
-                                SET
-                                    `school_groups_id`   = '{$group_id}',
-                                    `users_id`           = '{$teacher_id}'
-                             ");
-        }
+//        foreach( $post['teacher_for_group'] as $teacher_id ){
+//            $this->db->query("  INSERT INTO `school_groups_users`
+//                                SET
+//                                    `school_groups_id`   = '{$group_id}',
+//                                    `users_id`           = '{$teacher_id}'
+//                             ");
+//        }
         
         //добавление студентов к группе
         if( isset($post['students_in_group']) ){

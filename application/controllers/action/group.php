@@ -82,10 +82,10 @@ class group extends CI_Controller{
             $anser_ar['content']    = 'Следующие поля были заполнены не правильно:<br />';
             $anser_ar['content']    .= $this->validform_lib->add_group( $_POST );
         }
-        elseif( !isset($_POST['teacher_for_group']) ){
-            $anser_ar['title']      = 'Ошибка добавления';
-            $anser_ar['content']    = 'Для группы не назначен препадаватель';
-        }
+//        elseif( !isset($_POST['teacher_for_group']) ){
+//            $anser_ar['title']      = 'Ошибка добавления';
+//            $anser_ar['content']    = 'Для группы не назначен препадаватель';
+//        }
         elseif(     count($_POST['day']) != count($_POST['class']) 
                 OR  count($_POST['day']) != count($_POST['start_lesson']) 
                 OR  count($_POST['day']) != count($_POST['teacher']) 

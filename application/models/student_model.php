@@ -195,7 +195,8 @@ class student_model extends CI_Model{
         $query = $this->db->query("
                         SELECT 
                             student.*, 
-                            school_groups.name AS `group_name`, school_groups.id AS `group_id`, 
+                            school_groups.name AS `group_name`, 
+                            school_groups.id AS `group_id`, 
                             lang.short_name AS `lang_name`,
                             lang.id AS `lang_id`
                         FROM
@@ -206,6 +207,8 @@ class student_model extends CI_Model{
                             school_groups.id = student_school_groups.school_groups_id
                             AND 
                             school_groups.lang_id = lang.id
+                            AND
+                            school_groups.status != 404
                             AND
                             student.delete = '{$param}'
                         GROUP BY student_school_groups.id
@@ -253,7 +256,14 @@ class student_model extends CI_Model{
     function get_students_without_group(){
        $query = $this->db->query("  SELECT * FROM `student`
                                     WHERE 
-                                        `id` NOT IN (SELECT `student_id` FROM `student_school_groups`) 
+                                        `id` NOT IN (   SELECT `student_id` 
+                                                        FROM 
+                                                        `student_school_groups`, `school_groups`
+                                                        WHERE 
+                                                            student_school_groups.school_groups_id = school_groups.id
+                                                            AND
+                                                            school_groups.status != 404
+                                                    ) 
                                         AND
                                         `delete` = 'live' "); 
        $return_ar = NULL;

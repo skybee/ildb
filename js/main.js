@@ -86,9 +86,9 @@ function set_jq_action(){
     
     //<предпочтительный график студента без группы>
     if( typeof(st_info_obj) != 'undefined' ){
-        $('select[name=count_lesson]    option[value='+st_info_obj.count_lesson+']')    .attr('selected', 'selected');
-        $('select[name=lesson_form]     option[value='+st_info_obj.lesson_form+']')     .attr('selected', 'selected');
-        $('select[name=lesson_length]   option[value='+st_info_obj.lesson_length+']')   .attr('selected', 'selected');
+        $('select[name=count_lesson]    option[value="'+st_info_obj.count_lesson+'"]')    .attr('selected', 'selected');
+        $('select[name=lesson_form]     option[value="'+st_info_obj.lesson_form+'"]')     .attr('selected', 'selected');
+        $('select[name=lesson_length]   option[value="'+st_info_obj.lesson_length+'"]')   .attr('selected', 'selected');
         
         for(i=0; i<st_info_obj.schedule_ar.length; i++ ){
             day_obj = st_info_obj.schedule_ar[i];
