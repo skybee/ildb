@@ -38,7 +38,6 @@ class list_model extends CI_Model{
         return $return_ar;
     }
     
-    
     function get_classroom(){
         $query = $this->db->query("SELECT * FROM `classroom` ORDER BY `name` ");
         
@@ -47,7 +46,6 @@ class list_model extends CI_Model{
         
         return $return_ar;
     }
-    
     
     function get_teacher_lang(){
         $query = $this->db->query("SELECT 

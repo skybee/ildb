@@ -79,6 +79,7 @@ textarea{
     cursor: pointer;
 }
 #top_calendar_btn{
+    display: block;
     background-image: url('/img/btn_top_date_navigation.png');
     background-position: 0 -117px;
     width: 39px; height: 39px;

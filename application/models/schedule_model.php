@@ -39,7 +39,7 @@ class schedule_model extends CI_Model{
     
     function get_timetable( $date_start = false, $date_stop = false){
         $result_ar = NULL;
-        $where_sql = '';
+        $where_sql = 'WHERE timetable_set.id != 0'; //заглушка
         
         // <вытаскивание замен>
         if($date_start && $date_stop){
@@ -54,13 +54,23 @@ class schedule_model extends CI_Model{
             foreach( $query_realy->result_array() as $row_realy ){
                 $result_ar[$row_realy['classroom_id']][$row_realy['day']][$row_realy['time_start']] = $row_realy;
             }
-            $where_sql = " WHERE `id` NOT IN 
+            $where_sql = " WHERE timetable_set.id NOT IN 
                                 (SELECT `timetable_set_id` FROM `timetable_changes`
                                 WHERE `change_date` >= '$date_start' AND `change_date` <= '$date_stop')";
         }
         // </вытаскивание замен>
         
-        $query = $this->db->query(" SELECT * FROM `timetable_set` $where_sql ");
+        $query = $this->db->query(" SELECT * 
+                                    FROM 
+                                        `timetable_set`, `school_groups` 
+                                    $where_sql 
+                                        -- отсев удаленных таблиц --
+                                        AND 
+                                        timetable_set.school_groups_id = school_groups.id
+                                        AND
+                                        school_groups.status != 404
+                                 ");
+        
         foreach( $query->result_array() as $row ){
             $result_ar[$row['classroom_id']] [$row['day']] [$row['time_start']] = $row;
         }

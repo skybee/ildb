@@ -50,7 +50,7 @@
                 <div id="top_block">
                     <h1><? if( isset($title) ) echo $title?></h1>
                     <div id="top_option_btn"></div>
-                    <div id="top_calendar_btn" onclick="document.location.href='/schedule/realy/'"></div>
+                    <a id="top_calendar_btn" href="/schedule/realy/"></a>
                     <div id="top_back_btn"></div>
                     
                     <div id="top_sitename_btn" class="show_slide_list">
