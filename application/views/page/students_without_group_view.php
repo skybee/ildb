@@ -12,11 +12,11 @@
                     <a href="/add_student/" class="top_left_btn_action" style="left:50px;">Добавить</a>
 
                     <a href="javascript:void(0)" class="top_left_btn top_left_btn_left top_left_btn_del"        style="left:160px;"
-                       onclick="del_students('delete')">
+                       onclick="del_stud_teach('delete', 'students')">
                         <div></div>
                     </a>
                     <a href="javascript:void(0)" class="top_left_btn top_left_btn_right top_left_btn_catalog"   style="left:200px;"
-                       onclick="del_students('arhive')">
+                       onclick="del_stud_teach('arhive', 'students')">
                         <div></div>
                     </a>
 
@@ -24,7 +24,7 @@
                         <div>Функции</div>
                         <div class="slide_list_block" style="width: 170px; top: 27px; right:0; height: 105px !important;">
                             <ul class="student_copy_ul">
-                                <li>Добавить в группу</li>
+                                <li onclick="add_students_to_group()">Добавить в группу</li>
                                 <li copyname="copyphone" class="copy_info">Скопировать телефоны</li>
                                 <li copyname="copymail" class="copy_info">Скопировать e-mail</li>
                                 <!--

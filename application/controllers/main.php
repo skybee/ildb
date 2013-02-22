@@ -232,10 +232,8 @@ class main extends CI_Controller{
     
     function teachers(){
         $tch_data['teachers_list'] = $this->teacher->get_teachers();
-
-//        echo '<pre>';
+        
 //        print_r($tch_data);
-//        echo '</pre>';
         
         $main_data_ar['title']          = 'Преподаватели';
         $main_data_ar['left_menu']      = $this->load->view('component/left_menu_view', '', TRUE);
